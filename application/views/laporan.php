@@ -40,36 +40,7 @@
 <input type="hidden" name="dinas" value="<?php echo $session['dinas']?>">
 <input type="hidden" name="subdinas" value="<?php echo $session['subdinas']?>">
 <input type="hidden" name="unit" value="<?php echo $session['unit']?>">
-<input type="hidden" name="tgl" value="<?php echo date('Y-m-d')?>">
 
-				<!--div class="row">
-					<div class="col-sm-6 col-md-4 hidden">
-						<div class="form-group">
-							<label class="form-label">Formulir</label>
-<?php
-$formulir['']='---pilih formulir---';
-$opt=array('class'=>'form-control','id'=>'formulir','onchange'=>"ambil_isi(this.value);");
-echo form_dropdown('formulir', array_reverse($formulir,true), '',$opt);
-?>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4 dasar">
-						<div class="form-group">
-							<label class="form-label">Dasar</label>
-							<?php
-							$dasargiat['']='---pilih dasar giat---';
-							$opt=array('class'=>'form-control','id'=>'dasar');
-							echo form_dropdown('dasar', array_reverse($dasargiat,true), '',$opt);
-							?>
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4 nomor">
-						<div class="form-group">
-							<label class="form-label">Nomor</label>
-							<input type="text" id="nomor" name="nomor" class="form-control" placeholder="" >
-						</div>
-					</div>					
-				</div-->
 				<hr />
 				<div class="dimmer active ldr hidden">
 					<div class="sk-cube-grid">

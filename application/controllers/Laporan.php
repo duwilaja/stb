@@ -6,9 +6,7 @@ class Laporan extends CI_Controller {
 	public function __construct()
 	{
         parent::__construct();
-        $this->load->model('MLaporan','ml');
-		// Your own constructor code
-		$this->load->model('MApi','mapi');
+        // Your own constructor code
 		
 	}
 	public function tes(){
@@ -19,23 +17,7 @@ class Laporan extends CI_Controller {
 	{
 		$user=$this->session->userdata('user_data');
 		if(isset($user)){
-			$d=$this->mapi->get('polda?prov_id=13');
-			$dt = $d[0]?$d[0]:$d[1];
-			if(isset($dt->data)){
-				if(count($dt->data)>0){
-					$user['polda']=$dt->data[0]->polda_id;
-				}
-			}
-			$d=$this->mapi->get('polres?kota_id=208');
-			$dt = $d[0]?$d[0]:$d[1];
-			if(isset($dt->data)){
-				if(count($dt->data)>0){
-					$user['polres']=$dt->data[0]->polres_id;
-				}
-			}
 			$data['session'] = $user;
-			//$data['jumlah'] = comboopts($this->db->select('id as v, status as t')->where("status",0)->get('patwal_permohonan')->result());
-			$data['dasargiat'] = comboopts($this->db->select('dg_id as v,dg_nam as t')->get('dasargiat')->result());
 			$data['formulir'] = comboopts($this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->or_where("unit",$user["subdinas"])->order_by("nama_laporan")->get('formulir')->result());
 			$data['title'] = "Formulir";
 			
@@ -82,47 +64,17 @@ class Laporan extends CI_Controller {
 		}
     }
 
-    //Éntry Laporan Gatur Lalin
-    public function dt_lap_gat_lin()
-    {
-        echo ($this->ml->dt_lap_gat_lin());
-    }
-
-    public function lap_gat_lin()
-    {
-        $data = [
-            'title' => 'Laporan Giat Lalin',
-            'js_local' => 'laporan/lap_gat_lin.js',
-        ];
-        $this->template->load('page/laporan/lap_gat_lin', $data);
-    }
-    
-
-	
-	public function get_form()
+    public function get_form()
 	{
 		$user=$this->session->userdata('user_data');
 		if(isset($user)){
-			$d=$this->input->post('direktorat');
-			if($d!='')$where['direktorat']=$d;
-			$d=$this->input->post('sie');
-			if($d!='')$where['sie']=$d;
-			$d=$this->input->post('subdit');
-			if($d!='')$where['subdit']=$d;
-			$ret=$this->db->select('view_laporan as v,nama_laporan as t')->where($where)->order_by("nama_laporan")->get('formulir')->result();
+			$ret=$this->db->select('view_laporan as v,nama_laporan as t')->order_by("nama_laporan")->get('formulir')->result();
 			$retval=array('code'=>"200",'ttl'=>"OK",'msgs'=>$ret);
 			echo json_encode($retval);
 		}else{
 			$retval=array('code'=>"403",'ttl'=>"Session closed",'msgs'=>array());
 			echo json_encode($retval);
 		}
-	}
-	private function takeout($str,$arr){
-		$ret=array();
-		foreach($arr as $key=>$val){
-			if($key!=$str)	$ret=array_merge($ret,array($key=>$val));
-		}
-		return $ret;
 	}
 	public function get_content()
 	{
@@ -134,122 +86,8 @@ class Laporan extends CI_Controller {
 			//put all masterdatas needed here
 			$data['dummy']="this is dummy data";
 			
-			if(substr($id,0,8)=='tmc_cctv'){
-				$subm=array("tmc_cctv_jalan"=>"Jalan","tmc_cctv_toll"=>"Toll","tmc_cctv_public"=>"Fasilitas Publik","tmc_cctv_critical"=>"Wilayah Critical","tmc_cctv_object"=>"Object");
-				$data['subm']=$subm;//$this->takeout($id,$subm);
-				$data['frid']=$id;
-				$data['penyebab'] = comboopts($this->db->select('sebab as v,sebab as t')->get('penyebab_macet')->result());
-			}
-			if(substr($id,0,8)=='tmc_data'){
-				$subm=array("tmc_data_giatpublik"=>"Giat Publik","tmc_data_vip"=>"Route VIP","tmc_data_fas_public"=>"Fasilitas Publik",
-				"tmc_data_jalan"=>"Data Jalan","tmc_data_statusjalan"=>"Status Jalan","tmc_data_gangguan"=>"Gangguan",
-				"tmc_data_rawan"=>"Titik Rawan","tmc_data_darurat"=>"Layanan Darurat");
-				$data['subm']=$subm;//$this->takeout($id,$subm);
-				$data['frid']=$id;
-				//$data['penyebab'] = comboopts($this->db->select('sebab as v,sebab as t')->get('penyebab_macet')->result());
-			}
-			if(substr($id,0,8)=='tmc_reng'){
-				$subm=array("tmc_rengiat"=>"Giat Umum","tmc_rengiat_vip"=>"RenGiat PAM VIP","tmc_rengiat_lak_vip"=>"Pelaksanaan PAM VIP");
-				$data['subm']=$subm;//$this->takeout($id,$subm);
-				$data['frid']=$id;
-				if($id=='tmc_rengiat_vip'){
-					$data['gangguan'] = comboopts($this->db->select("concat(status,'-',penyebab,'-',penyebabd) as v, concat(jalan,'-',penyebab,'-',penyebabd,'-',status) as t")->order_by('jalan','ASC')->get('tmc_data_gangguan')->result());
-				}
-			}
-			
-			
-			if($id=='tmc_cctv_gerbang'){  //
-				$data['gerbang'] = ($this->db->select('val,txt')->where('grp','gerbang')->get('lov')->result_array());
-				$data['kendaraan'] = ($this->db->select('val,txt')->where('grp','kendaraan')->get('lov')->result_array());
-			}
-			if($id=='tmc_cctv_public'){  //
-				$data["kategori"]=array("Wisata Alam","Pasar Tradisional","Wisata Budaya","Wisata Buatan","Kantor Polisi","Wisata Religi","Rumah Sakit","Wisata Kampung Kota",
-				"Puskesmas","Stasiun","Pasar Modern","SPBU","Terminal","Tempat Ibadah");
-			}
-			if($id=='tmc_cctv_lalin'){  //
-				$data["cctvs"]=$this->db->select("nama_cctv,kordinat")->get("cctv")->result_array();
-			}
-			
-			if($id=='tmc_data_jalan'){  //
-				$d=$this->mapi->get('jalan/jenis');
-				$data['jenisjalan'] = $d[0]?$d[0]:$d[1];
-				$d=$this->mapi->get('jalan/status');
-				$data['statusjalan'] = $d[0]?$d[0]:$d[1];
-				$d=$this->mapi->get('provinsi');
-				$data['provinsi'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_data_darurat'){  //
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_data_statusjalan'){  //
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-				
-				$d=$this->mapi->get('bsPenyebab');
-				$data['penyebab'] = $d[0]?$d[0]:$d[1];
-				
-			}
-			if($id=='tmc_data_gangguan'){  //
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_data_rawan'){  //
-				$data['rawan'] = ($this->db->select('val,txt')->where('grp','rawan')->get('lov')->result_array());
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_data_giatpublik'){  //
-				$data['giatpublik'] = ($this->db->select('val,txt')->where('grp','giatpublik')->get('lov')->result_array());
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_rengiat'){  //
-				$data['giatpol'] = ($this->db->select('val,txt')->where('grp','giatpol')->get('lov')->result_array());
-				$d=$this->mapi->get('jalan?kota_id=208&prov_id=13');
-				$data['jalan'] = $d[0]?$d[0]:$d[1];
-			}
-			if($id=='tmc_ops_pidana'||$id=='tmc_pservice_pidana'){  //
-				$data['pidana'] = ($this->db->select('val,txt')->where('grp','pidana')->get('lov')->result_array());
-			}
-			if($id=='tmc_ops_laka'){  //
-				$data['penggal'] = ($this->db->select('val,txt')->where('grp','penggal')->get('lov')->result_array());
-			}
-			if($id=='tmc_interaksi'||$id=='tmc_publikasi'){  //
-				$data['media'] = ($this->db->select('val,txt')->where('grp','media')->get('lov')->result_array());
-				$data['jenisinfo'] = ($this->db->select('val,txt')->where('grp','jenisinfo')->get('lov')->result_array());
-				$data['jenisinteraksi'] = ($this->db->select('val,txt')->where('grp','jenisinteraksi')->get('lov')->result_array());
-			}
-			
-			if($id=='tmc_info_lalin' || $id=='ais_laka' || $id=='tmc_ops_macet' || $id=='tmc_ops_pol'){  //tmc info lalin
-				$data['penyebab'] = comboopts($this->db->select('sebab as v,sebab as t')->get('penyebab_macet')->result());
-			}
-			if($id=='eri_kendaraan'||$id=='ais_laka'){  //eri kendaraan
-				$data['polda'] = comboopts($this->db->select('da_id as v,da_nam as t')->get('polda')->result());
-			}
-			if($id=="tmc_ops_laka"||$id=="tmc_ops_langgar"||$id=="tmc_ops_pidana"||$id=="tmc_ops_pol"){
-				$otherdb = $this->load->database('db_intan', TRUE);
-				$data["instansi"]=$otherdb->select("nama_instansi as val, nama_instansi as txt")->get("instansi")->result_array();
-			}
-			if($id=='intan_analytic'){
-				if($user["polda"]!=""){ $this->db->where("polda",$user["polda"]); }
-				if($user["polres"]!=""){ $this->db->where("polres",$user["polres"]); }
-				$data['ambulance']=$this->db->select("nama,lat,lng")->where("yan","Ambulance")->get('ssc_yan_darurat')->result();
-				$data['faskes']=$this->db->select("nama,lat,lng")->where("yan","Faskes")->get('ssc_yan_publik')->result();
-				$data['pospol']=$this->db->select("nama,lat,lng")->where("pos","Pos Polisi")->get('ssc_jalan')->result();
-				$data['pospjr']=$this->db->select("nama,lat,lng")->where("pos","Pos PJR")->get('ssc_jalan')->result();
-				$data['koordinasi']=$this->db->select("giat,lat,lng")->get('tmc_koordinasi')->result();
-			}
-			if($id=='tar_data'){
-				$data['pelanggaran']=array(
-				"Kamtibmas"=>"Kamtibmas",
-				"Lampu Utama"=>"Lampu Utama",
-				"Jalur/lajur lalu lintas"=>"Jalur/lajur lalu lintas",
-				"Belokan/simpangan"=>"Belokan/simpangan",
-				"Kecepatan"=>"Kecepatan",
-				"Berhenti"=>"Berhenti",
-				"Parkir"=>"Parkir",
-				"Kendaraan Tidak Bermotor"=>"Kendaraan Tidak Bermotor");
+			if($id=='lapsit_giat_masy'){  //
+				$data['jenis'] = ($this->db->select('val,txt')->where('grp','jenis_giat_masy')->get('lov')->result_array());
 			}
 			
 			$this->load->view("formulir/$id",$data); //load the view
@@ -284,12 +122,7 @@ class Laporan extends CI_Controller {
 	
 	public function save()
 	{
-		/*$data = [
-			'petugas' => '',
-			'instansi' => '',
-			'nopol' => ''
-		];*/
-
+		
 		$user=$this->session->userdata('user_data');
 		if(isset($user)){
 			$msgs="No data has been saved";
@@ -311,19 +144,6 @@ class Laporan extends CI_Controller {
 				$data['uploadedfile'] =  $this->uplots('uploadedfile',$path);
 			}
 			
-			if (isset($data['petugas'])) {
-				if(is_array($data['petugas'])) $data['petugas'] = implode(';',$data['petugas']);
-			}
-
-
-			if (isset($data['instansi'])) {
-				if(is_array($data['instansi'])) $data['instansi'] = implode(';',$data['instansi']);
-			}
-
-			if (isset($data['nopol'])) {
-				if(is_array($data['nopol'])) $data['nopol'] = implode(';',$data['nopol']);
-			}
-
 			if($rowid==""||$rowid=="0"){
 				$this->db->insert($tname,$data);
 			}else{
@@ -383,52 +203,7 @@ class Laporan extends CI_Controller {
 			echo json_encode($retval);
 		}
 	}
-	public function get_subqx()
-	{
-		$user=$this->session->userdata('user_data');
-		if(isset($user)){
-			$id=$this->input->post('id');
-			$cols=$this->input->post('cols');
-			$tname=$this->input->post('tname');
-			$where=$this->input->post('where');
-			$otherdb = $this->load->database('db_intan', TRUE);
-			//$data['objek'] = ($otherdb->select('nama_lokasi as val,nama_lokasi as txt')->where_in('kategori_static',$cat)->get('lokasi')->result_array());
-			
-			if($where!=""){
-				$otherdb->where(array($where=>$id));
-			}
-			$ret=$otherdb->select($cols)->get($tname)->result();
-			$retval=array('code'=>"200",'ttl'=>"OK",'msgs'=>$ret);
-			echo json_encode($retval);
-		}else{
-			$retval=array('code'=>"403",'ttl'=>"Session closed",'msgs'=>array());
-			echo json_encode($retval);
-		}
-	}
 	
-	public function dttbl(){
-		$q=$this->input->post("q");
-		$draw=$this->input->post("draw");
-		
-		$data=array();
-		
-		$query=$this->db->query(base64_decode($q));
-		foreach ($query->result_array() as $row)
-		{
-			$data[]=array_values($row);
-		}
-		
-		$iTotal=count($data);
-		
-		$output = array(
-          "draw"=>$draw,
-          "recordsTotal"=>$iTotal, // total number of records 
-          "recordsFiltered"=>$iTotal, // if filtered data used then tot after filter
-          "data"=>$data
-        );
-
-		echo json_encode($output);
-	}
 	public function datas(){
 		$q=$this->input->post("q");
 		$id=$this->input->post("id");
