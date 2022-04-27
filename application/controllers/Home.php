@@ -39,7 +39,7 @@ class Home extends CI_Controller {
 		}
 	}
 	
-	public function dttbl(){
+	public function dttblx(){
 		$data=array(); $data_assoc=array();
 		//if(isset($user)){
 			$tname=base64_decode($this->input->post('tname')); //tablename
@@ -75,6 +75,17 @@ class Home extends CI_Controller {
                         "recordsFiltered" => $semua,
                         "data" => $data,
 						"assoc" => $data_assoc
+                );
+        //output to json format
+        echo json_encode($output);
+	}
+	public function dttbl(){
+		$output = array(
+                        "draw" => $this->input->post('draw'),
+                        "recordsTotal" => 0,
+                        "recordsFiltered" => 0,
+                        "data" => array(),
+						"assoc" => array()
                 );
         //output to json format
         echo json_encode($output);

@@ -29,9 +29,9 @@ class Login extends CI_Controller {
 			//redirect('login/out/1');
 		}
 		
-		$this->db->where('uid',$nrp);
-		$this->db->where('upwd',md5($pwd));
-		$acc=$this->db->get_where("core_user",['usts' => '1'])->result_array();
+		$this->db->where('nrp',$nrp);
+		$this->db->where('pwd',md5($pwd));
+		$acc=$this->db->get("accounts")->result_array();
 			
 		if(count($acc)>0){
 			$this->db->where('nrp',$nrp);
