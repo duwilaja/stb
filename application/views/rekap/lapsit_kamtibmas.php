@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-$cols="nrp,unit,polda,polres,dinas,subdinas,tgl,dasar,nomor,";
-$cols="nrp,tgl,da_nam,res_nam,thn,jml,md,lb,lr,rumat";
-$tname="ais_laka";
+$cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
+$cols="nrp,tgl,jenis,jam,lokasi,lat,lng,tindakan,caratindak,uraian,uploadedfile,'' as btnset,rowid";
+$tname="lapsit_kamtibmas";
 ?>
 
 <?php $this->load->view('rekap/incl/head_rekap');?>
@@ -12,14 +12,16 @@ $tname="ais_laka";
 					<tr>
 						<th>NRP</th>
 						<th>Tanggal</th>
-						<th>Polda</th>
-						<th>Polres</th>
-						<th>Tahun</th>
-						<th>Jumlah</th>
-						<th>Meninggal</th>
-						<th>Luka Berat</th>
-						<th>Luka Ringan</th>
-						<th>Kerugian Materi</th>
+						<th>Jenis Opr</th>
+						<th>Jam</th>
+						<th>Lokasi</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+						<th>Penindakan</th>
+						<th>Cara Bertindak</th>
+						<th>Uraian</th>
+						<th>Attachment</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,16 +35,21 @@ $tname="ais_laka";
 var  mytbl;
 function load_table(){
 	mytbl = $("#mytbl").DataTable({
-		serverSide: false,
+		serverSide: true,
 		processing: true,
 		searching: false,
 		buttons: ['copy', {extend : 'excelHtml5', messageTop: $(".judul").text()}],
 		ajax: {
 			type: 'POST',
-			url: '<?php echo base_url()?>rekap/datatable_all',
+			url: '<?php echo base_url()?>rekap/datatable',
 			data: function (d) {
 				d.cols= '<?php echo base64_encode($cols); ?>',
 				d.tname= '<?php echo base64_encode($tname); ?>',
+				d.orders= '<?php echo base64_encode("tgl desc, jam desc, rowid desc"); ?>',
+				d.ismap= true,
+				d.isedit= true,
+				d.isfile= true,
+				d.filefields= "uploadedfile",
 				d.tgl= $('#tgl').val();
 			}
 		},

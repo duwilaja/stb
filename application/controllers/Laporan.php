@@ -89,6 +89,11 @@ class Laporan extends CI_Controller {
 			if($id=='lapsit_giat_masy'){  //
 				$data['jenis'] = ($this->db->select('val,txt')->where('grp','jenis_giat_masy')->get('lov')->result_array());
 			}
+			if($id=='lapsit_kamtibmas'){  //
+				$data['jenis'] = ($this->db->select('val,txt')->where('grp','jenis_opr')->get('lov')->result_array());
+				$data['cara'] = ($this->db->select('val,txt')->where('grp','caratindak')->get('lov')->result_array());
+				$data['tindakan'] = ($this->db->select('val,txt')->where('grp','tindakan')->get('lov')->result_array());
+			}
 			
 			$this->load->view("formulir/$id",$data); //load the view
 			

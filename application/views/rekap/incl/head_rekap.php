@@ -2,7 +2,7 @@
 	<div class="card-header">
 	    <div class="row">
 	        <div class="col-md-8">
-	            <h5 class="titel_rekap">-</h5>
+	            <h5 class="titel_rekap"><?php echo $this->input->get("t")==''?$this->input->get("t"):"-"?></h5>
 	            <span>Hasil Rekapitulasi Data
 	            </span>
 	        </div>
