@@ -14,7 +14,7 @@ $base_url = base_url();
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="<?php echo $base_url;?>cuba/assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="<?php echo $base_url;?>cuba/assets/images/favicon.png" type="image/x-icon">
-    <title>Smart Management</title>
+    <title>Smart Teritory</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@ $base_url = base_url();
         <div class="col-xl-5 p-0">
           <div class="login-card">
             <div>
-              <div><a class="logo text-start" href="#">SMART MANAGEMENT</a></div>
+              <div><a class="logo text-start" href="#">SMART TERITORY</a></div>
               <div class="login-main"> 
                 <form class="theme-form" method="post" action="<?php echo $base_url;?>login">
                   <h4>Login ke Akun</h4>
