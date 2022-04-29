@@ -194,11 +194,11 @@ if(count($farr)>0&&$session['nrp']!=''){
                                 </li>
                                 <li class="sidebar-main-title">
                                     <div>
-                                        <h6>Formulir & Rekap</h6>
+                                        <h6>Main Menu</h6>
                                         <p><?php echo isset($session)?$session['unit']:""?></p>
                                     </div>
                                 </li>
-                                <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="file-text"></i><span>Formulir</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                                <!--li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="file-text"></i><span>Formulir</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                                     <ul class="sidebar-submenu" style="display: none;">
                                         <?php
                                             if(isset($formulir)){
@@ -213,8 +213,8 @@ if(count($farr)>0&&$session['nrp']!=''){
                                                 }
                                             }?>
                                     </ul>
-                                </li>
-                                <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="server"></i><span>Rekap</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+                                </li-->
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="server"></i><span>Data</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                                     <ul class="sidebar-submenu" style="display: none;">
                                     <?php
                                         if(isset($rekap)){
@@ -232,16 +232,9 @@ if(count($farr)>0&&$session['nrp']!=''){
                                         }?>
                                     </ul>
                                 </li>
-                                <?php if ($session['unit'] == "SMART ENFORCEMENT") {?>
-                                    <li class="sidebar-list">
-                                        <a class="sidebar-link" href="https://backoffice.elingsolo.com/new_etle/min/auth">
-                                            <i data-feather="file-text"></i><span>Etle</span>
-                                        </a>
-                                    </li>
-                                <?php }?>
 								<li class="sidebar-list">
                                     <a class="sidebar-link" href="<?=base_url('History')?>">
-                                        <i data-feather="server"></i><span>History</span>
+                                        <i data-feather="server"></i><span>Summary</span>
                                     </a>
                                 </li>
                             </ul>
@@ -294,7 +287,7 @@ if(count($farr)>0&&$session['nrp']!=''){
                                 </li>
 								<li class="sidebar-list">
                                     <a class="sidebar-link" href="<?=base_url('History')?>">
-                                        <i data-feather="server"></i><span>History</span>
+                                        <i data-feather="server"></i><span>Summary</span>
                                     </a>
                                 </li>
 								<li class="sidebar-list">&nbsp;</li>

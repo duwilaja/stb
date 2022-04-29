@@ -13,7 +13,7 @@ class Rekap extends CI_Controller {
 	{
 		$user=$this->session->userdata('user_data');
 		if ($v != '') {
-			return $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y",'view_laporan' => 'tmc_ops_laka'))->or_where("unit",$user["subdinas"])->order_by("nama_laporan")->get('formulir')->row();
+			return $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->or_where("unit",$user["subdinas"])->order_by("nama_laporan")->get('formulir')->row();
 		}else{
 			return comboopts($this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->or_where("unit",$user["subdinas"])->order_by("nama_laporan")->get('formulir')->result());
 		}
@@ -71,6 +71,7 @@ class Rekap extends CI_Controller {
 			//put all masterdatas needed here
 			$data['dummy']="this is dummy data";
 			$data['session']=$user;
+			$data['view']=$id;
 			
 			$this->load->view("rekap/$id",$data); //load the view
 			
@@ -78,89 +79,10 @@ class Rekap extends CI_Controller {
 			echo "<script>alrt('Session Closed, please login','error','Error');</script>";
 		}
 	}
-	
-	public function datatable_all(){
-		$user=$this->session->userdata('user_data');
-		$data=array(); $data_assoc=array();
-		if(isset($user)){
-			$tname=base64_decode($this->input->post('tname')); //tablename
-			$cols=base64_decode($this->input->post('cols')); //column
-			
-			$ismap=base64_decode($this->input->post('ismap')); //is map button active?
-			$isverify=base64_decode($this->input->post('isverify')); //is verify button active?
-			$isfile=base64_decode($this->input->post('isfile')); //is files active?
-			$order_p = $this->input->post('orders');
-            $ord = "";
-            if($order_p!=""){
-                $ord = base64_decode($order_p);
-            }
-			$where=array();
-			//build where polda/polres
-			if ($this->input->post('tgl') != '') {
-				$ftgl=$this->input->post('ftgl')?$this->input->post('ftgl'):'tgl';
-				$where[$ftgl] = $this->input->post('tgl'); //date('Y-m-d');
-			}
-			//$d=$user['polres'];
-			///if($d!='')
-				//$where[$tname.'.polres']=$d;
-			//$d=$user['polda'];
-			//if($d!='')
-				//$where[$tname.'.polda']=$d;
-			
-			$this->db->select($cols);
-			$this->db->from($tname);
-			if($tname=="ais_laka"||$tname=="eri_kendaraan"){
-				$this->db->join("polda","polda.da_id=$tname.da","left");
-				$this->db->join("polres","polres.res_id=$tname.res","left");
-			}
-			$this->db->where($where);
-			if($ord!=""){
-                $this->db->order_by($ord);
-            }
-			$data_assoc=$this->db->get()->result_array();
-
-			$i = 0;
-			foreach ($data_assoc as $k => $v) {
-				$lnk='';
-				if($ismap){
-					$lnk.='<button type="button" class="btn btn-icon btn-info" onclick="mapview('.$v['lat'].','.$v['lng'].
-					');"><i class="fa fa-map-marker"></i></button>';
-					$nm=isset($v['tit'])?$v['tit']:'';
-					$src='https://satupeta.elingsolo.com/satupeta?lokasi='.$v['lat'].','.$v['lng'].'&nama='.$nm;
-					$lnk='<a type="button" class="btn btn-icon btn-info" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="'.$src.'"><i class="fa fa-map-marker"></i></a><br />';
-				}
-				if($isverify){
-					$lnk.=' <button type="button" class="btn btn-icon btn-warning" onclick="openmodal('.$v['rowid'].');"><i class="fa fa-check"></i></button>';
-				}
-				if($isfile){
-					$myfiles=explode(",",$this->input->post('filefields'));
-					for($z=0;$z<count($myfiles);$z++){
-						$v[$myfiles[$z]]=$this->make_link($v[$myfiles[$z]]);
-					}
-				}
-				if($lnk!=''){
-					$v['btnset']=$lnk;
-				}
-				if(array_key_exists('link',$v)){
-					if($v['link']!='') $v['link'] = '<a href="'.$v['link'].'"  target="__blank">'.$v['link'].'</a>';
-				}
-				$data[]=array_values($v);
-			}
-		}
-		$output = array(
-                        "draw" => 0,//$this->input->post('draw'),
-                        "recordsTotal" => count($data),
-                        "recordsFiltered" => count($data),
-                        "data" => $data,
-						"assoc" => $data_assoc
-                );
-        //output to json format
-        echo json_encode($output);
-	}
-	
+		
 	public function datatable(){
 		$user=$this->session->userdata('user_data');
-		$data=array(); $data_assoc=array();
+		$data=array(); $data_assoc=array(); $semua=0;
 		if(isset($user)){
 			$tname=base64_decode($this->input->post('tname')); //tablename
 			$cols=base64_decode($this->input->post('cols')); //column
@@ -173,11 +95,14 @@ class Rekap extends CI_Controller {
 			
 			$where=array();
 			$acol=explode(",",$cols);
+			$ftgl=$this->input->post('ftgl')?$this->input->post('ftgl'):'tgl';
 			
 			//build where polda/polres
-			if ($this->input->post('tgl') != '') {
-				$ftgl=$this->input->post('ftgl')?$this->input->post('ftgl'):'tgl';
-				$where[$ftgl] = $this->input->post('tgl'); //date('Y-m-d');
+			if ($this->input->post('fdate') != '') {
+				$where=array($ftgl.'>='=>$this->input->post('fdate')); //date('Y-m-d');
+			}
+			if ($this->input->post('tdate') != '') {
+				$where=array_merge($where,array($ftgl.'<='=>$this->input->post('tdate'))); //date('Y-m-d');
 			}
 			//$d=$user['polres'];
 			///if($d!='')
@@ -212,8 +137,8 @@ class Rekap extends CI_Controller {
 
 				$lnk='';
 				if($ismap){
-					$lnk.='<button type="button" class="btn btn-icon btn-info" onclick="mapview('.$data_assoc[$i]['lat'].','.$data_assoc[$i]['lng'].
-					');"><i class="fa fa-map-marker"></i></button>';
+					$lnk.='<a title="Map" class="btn btn-icon" onclick="mapview('.$data_assoc[$i]['lat'].','.$data_assoc[$i]['lng'].
+					');"><i class="fa fa-map-marker"></i></a>';
 					//$nm=isset($data_assoc[$i]['tit'])?$data_assoc[$i]['tit']:'';
 					//$src='https://satupeta.elingsolo.com/satupeta?lokasi='.$data_assoc[$i]['lat'].','.$data_assoc[$i]['lng'].'&nama='.$nm.'&display=off';
 					//$lnk='<a type="button" class="btn btn-icon btn-info" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="'.$src.'"><i class="fa fa-map-marker"></i></a><br />';
@@ -227,7 +152,7 @@ class Rekap extends CI_Controller {
 				}
 				if($isedit){
 					$lnkx=base_url().'edit?i='.$data_assoc[$i]['rowid'].'&t='.$tname;
-					$data_assoc[$i]['tgl']='<a class="btn btn-icon btn-info" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="'.$lnkx.'">'.$data_assoc[$i]['tgl'].'<br />';
+					$lnk.='<a title="Edit" class="btn btn-icon" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="'.$lnkx.'"><i class="fa fa-pencil"></i></a>';
 				}
 				if($isfile){
 					$myfiles=explode(",",$this->input->post('filefields'));
@@ -236,7 +161,8 @@ class Rekap extends CI_Controller {
 					}
 				}
 				if($lnk!=''){
-					$data_assoc[$i]['btnset']=$lnk;
+					$lnk.='<a title="Delete" class="btn btn-icon" onclick="swal(\''.$data_assoc[$i]['rowid'].' delnyabelumya..\');"><i class="fa fa-times"></i></a>';
+					$data_assoc[$i]['btnset']='<span>'.$lnk.'</span>';
 				}
 				$data[]=array_values($data_assoc[$i]);
 			}

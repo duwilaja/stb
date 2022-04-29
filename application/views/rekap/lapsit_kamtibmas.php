@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols="nrp,tgl,jenis,jam,lokasi,lat,lng,tindakan,caratindak,uraian,uploadedfile,'' as btnset,rowid";
+$cols="'' as btnset,nrp,tgl,jenis,jam,lokasi,lat,lng,tindakan,caratindak,uraian,uploadedfile,rowid";
 $tname="lapsit_kamtibmas";
 ?>
 
@@ -10,7 +10,8 @@ $tname="lapsit_kamtibmas";
 			<table id="mytbl" class="table table-striped table-bordered w-100">
 				<thead>
 					<tr>
-						<th>NRP</th>
+						<th></th>
+						<th>ID/NRP</th>
 						<th>Tanggal</th>
 						<th>Jenis Opr</th>
 						<th>Jam</th>
@@ -21,7 +22,6 @@ $tname="lapsit_kamtibmas";
 						<th>Cara Bertindak</th>
 						<th>Uraian</th>
 						<th>Attachment</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,6 +38,7 @@ function load_table(){
 		serverSide: true,
 		processing: true,
 		searching: false,
+		ordering:false,
 		buttons: ['copy', {extend : 'excelHtml5', messageTop: $(".judul").text()}],
 		ajax: {
 			type: 'POST',
@@ -50,7 +51,8 @@ function load_table(){
 				d.isedit= true,
 				d.isfile= true,
 				d.filefields= "uploadedfile",
-				d.tgl= $('#tgl').val();
+				d.fdate= $('#fdate').val(),
+				d.tdate= $('#tdate').val();
 			}
 		},
 		initComplete: function(){

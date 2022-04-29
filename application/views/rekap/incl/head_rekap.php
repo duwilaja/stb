@@ -1,3 +1,5 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <div class="card">
 	<div class="card-header">
 	    <div class="row">
@@ -16,11 +18,18 @@
 		<div class="filter">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="mb-1">Tanggal</div>
-					<input type="text" placeholder="Filter Tanggal" class="form-control datepicker" id="tgl">
+					<div class="mb-1">Dari</div>
+					<input type="text" placeholder="...." class="form-control datepicker" id="fdate">
 				</div>
                 <div class="col-md-3">
-                    <a href="#" title="Refresh" style="position: absolute;left:0;bottom:0;" class="btn btn-success" onclick="reload_table();"><i class="fe fe-refresh-cw"></i> Filter</a>
+					<div class="mb-1">Sampai</div>
+					<input type="text" placeholder="...." class="form-control datepicker" id="tdate">
+				</div>
+                <div class="col-md-2">
+                    <a href="#" title="Refresh" style="position: absolute;left:0;bottom:0;" class="btn btn-info" onclick="reload_table();"><i class="fe fe-refresh-cw"></i> Filter</a>
+                </div>
+                <div class="col-md-2">
+					<a class="btn btn-icon btn-success" style="position: absolute;left:0;bottom:0;" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="edit?i=0&t=<?php echo $view ?>">Create</a>
                 </div>
 			</div>
 		</div>
