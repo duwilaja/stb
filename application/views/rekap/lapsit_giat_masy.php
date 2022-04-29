@@ -37,6 +37,7 @@ function load_table(){
 		serverSide: true,
 		processing: true,
 		searching: false,
+		ordering:false,
 		buttons: ['copy', {extend : 'excelHtml5', messageTop: $(".judul").text()}],
 		ajax: {
 			type: 'POST',
@@ -47,7 +48,8 @@ function load_table(){
 				d.orders= '<?php echo base64_encode("tgl desc, rowid desc"); ?>',
 				d.ismap= true,
 				d.isedit= true,
-				d.tgl= $('#tgl').val();
+				d.fdate= $('#fdate').val(),
+				d.tdate= $('#tdate').val();
 			}
 		},
 		initComplete: function(){

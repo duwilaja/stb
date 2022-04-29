@@ -97,7 +97,7 @@ $base_url=base_url();
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">Edit</h3>
+				<h3 class="card-title">Form</h3>
 				
 			</div>
 			<div class="card-body"><form name="myf" id="myf">
@@ -110,7 +110,6 @@ $base_url=base_url();
 <input type="hidden" name="dinas" value="<?php echo $session['dinas']?>">
 <input type="hidden" name="subdinas" value="<?php echo $session['subdinas']?>">
 <input type="hidden" name="unit" value="<?php echo $session['unit']?>">
-<input type="hidden" name="tgl" value="<?php echo date('Y-m-d')?>">
 
 				<div class="dimmer active ldr hidden">
 					<div class="sk-cube-grid">
