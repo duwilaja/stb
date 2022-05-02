@@ -505,3 +505,40 @@ function sendData(f,u){
 function process_end(){
 	$("#modal_process").modal("hide");
 }
+
+
+function confirmDeletex(id,tname){
+	swal({
+	  title: "Are you sure?",
+	  text: "Data will be deleted permanently",
+	  icon: "warning",
+	  buttons: true,
+	  dangerMode: true,
+	})
+	.then((willDelete) => {
+	  if (willDelete) {
+		deleteDatax(id,tname);
+	  }
+	});
+}
+function deleteDatax(id,tname){
+	$.ajax({
+		type: 'POST',
+		url: 'laporan/dele',
+		data: {rowid:id,tablename:tname},
+		success: function(data){
+			var json = JSON.parse(data);
+			if(json['code']=='200'){
+				alrt(json['msgs'],'success',json['ttl']);
+			}else{
+				alrt(json['msgs'],'error',json['ttl']);
+			}
+			if(typeof(reload_table)=="function"){
+				reload_table();
+			}
+		},
+		error: function(xhr){
+			alrt('Please check the link','error','Error');
+		}
+	});
+}

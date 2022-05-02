@@ -16,6 +16,7 @@ class Edit extends CI_Controller {
 			$data['session']=$user;
 			$data['i']=$this->input->get('i');
 			$data['t']=$this->input->get('t');
+			$data['v']=$this->getfrm($data['t']);
 			$this->load->view('edit',$data);
 		}else{
 			echo "<h3>Invalid session, please login.</h3>";
@@ -32,6 +33,11 @@ class Edit extends CI_Controller {
 		}
 		$out=array("code"=>"200", "msgs"=>$ret);
 		echo json_encode($out);
+	}
+	
+	private function getfrm($v='')
+	{
+		return $this->db->where(array("view_laporan"=>$v))->get('formulir')->row();
 	}
 	
 }

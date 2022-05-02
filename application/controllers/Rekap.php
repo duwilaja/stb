@@ -161,7 +161,7 @@ class Rekap extends CI_Controller {
 					}
 				}
 				if($lnk!=''){
-					$lnk.='<a title="Delete" class="btn btn-icon" onclick="swal(\''.$data_assoc[$i]['rowid'].' delnyabelumya..\');"><i class="fa fa-times"></i></a>';
+					$lnk.='<a title="Delete" class="btn btn-icon" onclick="confirmDeletex(\''.$data_assoc[$i]['rowid'].'\',\''.$tname.'\');"><i class="fa fa-times"></i></a>';
 					$data_assoc[$i]['btnset']='<span>'.$lnk.'</span>';
 				}
 				$data[]=array_values($data_assoc[$i]);

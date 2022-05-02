@@ -16,7 +16,7 @@ $base_url=base_url();
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="<?php echo $base_url;?>cuba/assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="<?php echo $base_url;?>cuba/assets/images/favicon.png" type="image/x-icon">
-    <title>Smart Management</title>
+    <title>Smart Teritory</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
         rel="stylesheet">
@@ -97,7 +97,7 @@ $base_url=base_url();
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">Form</h3>
+				<h3 class="card-title">Form <?php echo $v->nama_laporan?></h3>
 				
 			</div>
 			<div class="card-body"><form name="myf" id="myf">
@@ -219,6 +219,7 @@ $(document).ready(function(){
 	if(typeof(thispage_ready)=='function'){
 		thispage_ready();
 		$("#pageWrapper").removeClass("compact-wrapper dark-sidebar");
+		$(".page-body").css("margin-top","5px");
 	}
 });
 
