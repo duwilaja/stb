@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols="'' as btnset,nrp,tgl,tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan,foto,rowid";
+$cols="'' as btnset,nrp,tgl,tglsuluh,jam,kategori,sasaran,media,link,lokasi,lat,lng,audien,doc,kesimpulan,foto,rowid";
 $tname="rengiat_suluh";
 ?>
 
@@ -18,6 +18,7 @@ $tname="rengiat_suluh";
 						<th>Kategori</th>
 						<th>Sasaran</th>
 						<th>Media</th>
+						<th>Link</th>
 						<th>Lokasi</th>
 						<th>Latitude</th>
 						<th>Longitude</th>
