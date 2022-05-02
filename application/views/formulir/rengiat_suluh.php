@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols.="tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan,foto";
+$cols.="tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan,foto,link";
 ?>
 <input type="hidden" name="path" value="rengiat_suluh">
 
@@ -54,7 +54,7 @@ $cols.="tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan
 	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Media</label>
-			<select name="media" class="form-select" placeholder="">
+			<select name="media" id="media" class="form-select" placeholder="" onchange="mediachanged(this.value)">
 				<option value=""></option>
 <?php for($i=0;$i<count($media);$i++){?>
 <option value="<?php echo $media[$i]['val']?>"><?php echo $media[$i]['txt']?></option>
@@ -62,7 +62,12 @@ $cols.="tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan
 			</select>
 		</div>
 	</div>
-
+	<div class="col-sm-6 col-md-6 ling hidden">
+		<div class="form-group">
+			<label class="form-label">Link</label>
+			<input type="text" id="link" name="link" class="form-control" placeholder="" >
+		</div>
+	</div>
 </div>
 <div class="row">
 	<div class="col-sm-6 col-md-4">
@@ -136,12 +141,12 @@ $cols.="tglsuluh,jam,kategori,sasaran,media,lokasi,lat,lng,audien,doc,kesimpulan
 function mappicker(lat,lng){
 	window.open(base_url+"map?lat="+$(lat).val()+"&lng="+$(lng).val(),"MapWindow","width=830,height=500,location=no").focus();
 }
-function jenischanged(tv){
-	if(tv=='Yan Aduan'){
-		$(".aduan").show();
+function mediachanged(tv){
+	if(tv=='Online'){
+		$(".ling").show();
 	}else{
-		$("#jenisd").val("");
-		$(".aduan").hide();
+		$("#link").val("");
+		$(".ling").hide();
 	}
 }
 jvalidate = $("#myf").validate({
@@ -173,4 +178,7 @@ timepicker();
 $(".is-invalid").removeClass("is-invalid");
 $(".is-valid").removeClass("is-valid");
 
+function reccallback(){
+	mediachanged($("#media").val());
+}
 </script>

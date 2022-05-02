@@ -268,6 +268,7 @@ function getRec(){
 			}else{
 				log(json['msgs']);
 			}
+			if(typeof(reccallback)=='function') reccallback();
 		},
 		error: function(xhr){
 			log('Please check your connection'+xhr);
