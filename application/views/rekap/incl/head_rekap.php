@@ -10,7 +10,7 @@
 	        </div>
 
 	        <div class="col-md-4">
-	            <div id="pilih_rekap"></div>
+	            <div id="pilih_rekapx"></div>
 	        </div>
 	    </div>
 	</div>

@@ -94,6 +94,32 @@ class Laporan extends CI_Controller {
 				$data['cara'] = ($this->db->select('val,txt')->where('grp','caratindak')->get('lov')->result_array());
 				$data['tindakan'] = ($this->db->select('val,txt')->where('grp','tindakan')->get('lov')->result_array());
 			}
+			if($id=='lapsit_wal'){  //
+				$data['obj'] = ($this->db->select('val,txt')->where('grp','obj_wal')->get('lov')->result_array());
+				$data['acara'] = ($this->db->select('val,txt')->where('grp','acara_wal')->get('lov')->result_array());
+			}
+			if($id=='lapsit_ricuh'){  //
+				$data['kategori'] = ($this->db->select('val,txt')->where('grp','kat_ricuh')->get('lov')->result_array());
+			}
+			if($id=='lapsit_bencana'){  //
+				$data['jenis'] = ($this->db->select('val,txt')->where('grp','jenis_bencana')->get('lov')->result_array());
+				$data['bantuan'] = ($this->db->select('val,txt')->where('grp','jenis_bantuan')->get('lov')->result_array());
+			}
+			if($id=='lapsit_ketahanan'){  //
+				$data['aksi'] = ($this->db->select('val,txt')->where('grp','jenis_aksi')->get('lov')->result_array());
+				$data['pelaku'] = ($this->db->select('val,txt')->where('grp','jenis_pelaku')->get('lov')->result_array());
+			}
+			
+			if($id=='rengiat_wal'){  //
+				$data['obj'] = ($this->db->select('val,txt')->where('grp','obj_wal')->get('lov')->result_array());
+				$data['ambang'] = ($this->db->select('val,txt')->where('grp','ambang_gangguan')->get('lov')->result_array());
+				$data['acara'] = ($this->db->select('val,txt')->where('grp','acara_wal')->get('lov')->result_array());
+			}
+			if($id=='rengiat_suluh'){  //
+				$data['kategori'] = ($this->db->select('val,txt')->where('grp','kategori_suluh')->get('lov')->result_array());
+				$data['media'] = ($this->db->select('val,txt')->where('grp','media')->get('lov')->result_array());
+				$data['sasaran'] = ($this->db->select('val,txt')->where('grp','sasaran')->get('lov')->result_array());
+			}
 			
 			$this->load->view("formulir/$id",$data); //load the view
 			
@@ -117,7 +143,7 @@ class Laporan extends CI_Controller {
 				  $_FILES['file']['size'] = $_FILES[$fld]['size'][$i];
 				
 				if ( $this->upload->do_upload('file')){
-						$ret[]= $path.$this->upload->data('file_name');
+						$ret[]= $path.'/'.$this->upload->data('file_name');
 					}
 			}
 		}
@@ -135,6 +161,7 @@ class Laporan extends CI_Controller {
 			$tname=$this->input->post('tablename');
 			$fname=$this->input->post('fieldnames');
 			$data=$this->input->post(explode(",",$fname));
+			$aplo="";
 			if(strpos($fname,"uploadedfile")){
 				//upload here
 				$path="./uploads/".$this->input->post("path");
@@ -146,12 +173,19 @@ class Laporan extends CI_Controller {
 				$m="";
 				$this->load->library('upload', $config);
 				
-				$data['uploadedfile'] =  $this->uplots('uploadedfile',$path);
+				$aplo =  $this->uplots('uploadedfile',$path);
+				$data['uploadedfile']=$aplo;
+			}
+			if($tname=='rengiat_suluh'){
+				$data=$this->rengiat_suluh($data,$rowid);
 			}
 			
 			if($rowid==""||$rowid=="0"){
 				$this->db->insert($tname,$data);
 			}else{
+				if($aplo=="" && isset($data['uploadedfile'])) {
+					unset($data['uploadedfile']);
+				}
 				$this->db->update($tname,$data,"rowid=$rowid");
 			}
 			$ret=$this->db->affected_rows();
@@ -172,8 +206,6 @@ class Laporan extends CI_Controller {
 			$msgs="No data has been deleted";
 			$rowid=$this->input->post("rowid");
 			$tname=$this->input->post('tablename');
-			$fname=$this->input->post('fieldnames');
-			$data=$this->input->post(explode(",",$fname));
 			if($rowid!=""){
 				$this->db->delete($tname,array('rowid' => $rowid));
 			}
@@ -217,27 +249,6 @@ class Laporan extends CI_Controller {
 			case "statusjalan": $sql="select lat,lng,concat(jalan,'-',status) as ttl,rowid from tmc_data_statusjalan"; 
 			if($id!="") $sql="select * from tmc_data_statusjalan where rowid=$id";
 			break;
-			case "rawan": $sql="select lat,lng,concat(jalan,'-',status) as ttl,rowid from tmc_data_rawan"; 
-			if($id!="") $sql="select * from tmc_data_rawan where rowid=$id";
-			break;
-			case "darurat": $sql="select lat,lng,concat(jalan,'-',jenis) as ttl,rowid from tmc_data_darurat"; 
-			if($id!="") $sql="select * from tmc_data_darurat where rowid=$id";
-			break;
-			case "gangguan": $sql="select lat,lng,concat(jalan,'-',status,'-',penyebab,'-',penyebabd) as ttl,rowid from tmc_data_gangguan"; 
-			if($id!="") $sql="select * from tmc_data_gangguan where rowid=$id";
-			break;
-			case "jalan": $sql="select * from tmc_data_jalan"; 
-			if($id!="") $sql="select * from tmc_data_jalan where rowid=$id";
-			break;
-			case "ec": $sql="select * from tmc_ops_ec"; 
-			if($id!="") $sql="select * from tmc_ops_ec where rowid=$id";
-			break;
-			case "kendaraan": $sql="select * from tmc_data_kendaraan"; 
-			if($id!="") $sql="select * from tmc_data_kendaraan where rowid=$id";
-			break;
-			case "pengemudi": $sql="select * from tmc_data_pengemudi"; 
-			if($id!="") $sql="select * from tmc_data_pengemudi where rowid=$id";
-			break;
 		}
 		
 		$query=$this->db->query($sql);
@@ -245,6 +256,44 @@ class Laporan extends CI_Controller {
 		
 		echo json_encode($output);
 	}
+	
+	private function rengiat_suluh($d,$rowid){
+		//upload here
+		$path="./uploads/".$this->input->post("path").'/doc';
+		$config['upload_path'] = $path;
+		$config['allowed_types'] = '*';//'gif|jpg|jpeg|png';//all
+		//$config['file_name'] = $user['nrp'];
+		$config['file_ext_tolower'] = true;
+		//$config['overwrite'] = false;
+		$this->load->library('upload', $config);
+		
+		$upl=$this->uplots('fdoc',$path);
+		if($rowid==0||$rowid==""||$upl!=''){
+			$d['doc']=$upl;
+		}else{
+			unset($d['doc']);
+		}
+		$path="./uploads/".$this->input->post("path").'/kesimpulan';
+		$config['upload_path'] = $path;
+		$this->upload->initialize($config);
+		$upl=$this->uplots('fkesimpulan',$path);
+		if($rowid==0||$rowid==""||$upl!=''){
+			$d['kesimpulan']=$upl;
+		}else{
+			unset($d['kesimpulan']);
+		}
+		$path="./uploads/".$this->input->post("path").'/foto';
+		$config['upload_path'] = $path;
+		$this->upload->initialize($config);
+		$upl=$this->uplots('ffoto',$path);
+		if($rowid==0||$rowid==""||$upl!=''){
+			$d['foto']=$upl;
+		}else{
+			unset($d['foto']);
+		}
+		return $d;
+	}
+	
 	public function save_rengiat_vip()
 	{
 		$user=$this->session->userdata('user_data');

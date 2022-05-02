@@ -10,7 +10,7 @@
 								<li aria-haspopup="true"><a href="#" class="sub-icon"><i class="fa fa-database"></i> Master <i class="fa fa-angle-down horizontal-icon"></i></a>
 									<ul class="sub-menu">
 										<li aria-haspopup="true"><a href="m_user<?php echo $ext?>">User</a></li>
-			<?php if($s_LVL=="Korlantas" && $s_GRP=='Bag TIK'){ ?>
+			<?php //if($s_LVL=="Korlantas" && $s_GRP=='Bag TIK'){ ?>
 										<li aria-haspopup="true"><a href="m_form<?php echo $ext?>">Formulir</a></li>
 										<!--li aria-haspopup="true"><a href="m_penduduk<?php echo $ext?>">Penduduk</a></li>
 										<li aria-haspopup="true"><a href="m_targetlaka<?php echo $ext?>">Target Laka</a></li-->
@@ -35,7 +35,7 @@
 												<li aria-haspopup="true"><a href="tmc_macetd<?php echo $ext?>">Penyebab Detil</a></li>
 											</ul>
 										</li-->
-			<?php }?>
+			<?php //}?>
 									</ul>
 								</li>
 							</ul>
