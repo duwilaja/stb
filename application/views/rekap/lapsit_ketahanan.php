@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols="'' as btnset,nrp,tgl,jam,aksi,pelaku,lokasi,lat,lng,md,lb,lr,uraian,uploadedfile,rowid";
+$cols="'' as btnset,nrp,tgl,jam,aksi,pelaku,lokasi,lat,lng,korban,md,lb,lr,uraian,uploadedfile,rowid";
 $tname="lapsit_ketahanan";
 ?>
 
@@ -19,6 +19,7 @@ $tname="lapsit_ketahanan";
 						<th>Lokasi</th>
 						<th>Latitude</th>
 						<th>Longitude</th>
+						<th>Korban</th>
 						<th>Meninggal</th>
 						<th>L.Berat</th>
 						<th>L.Ringan</th>

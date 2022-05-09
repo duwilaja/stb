@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols.="jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile";
+$cols.="jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile,korban";
 ?>
 <input type="hidden" name="path" value="lapsit_ketahanan">
 
@@ -71,24 +71,33 @@ $cols.="jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile";
 			<button type="button" class="btn btn-danger" onclick="mappicker('#lat','#lng');"><i class="fa fa-map-marker"></i></button>
 		</div>
 	</div>
+	<div class="col-sm-6 col-md-3">
+		<div class="form-group">
+			<label class="form-label">Korban</label>
+			<select name="korban" id="korban" class="form-select" placeholder="" onchange="adatidak(this.value)">
+				<option value="Tidak Ada">Tidak Ada</option>
+				<option value="Ada">Ada</option>
+			</select>
+		</div>
+	</div>
 </div>
-<div class="row">
+<div class="row korban">
 	<div class="col-sm-6 col-md-2">
 		<div class="form-group">
 			<label class="form-label">Meninggal</label>
-			<input type="text" id="md" name="md" class="form-control" placeholder="" >
+			<input type="text" id="md" name="md" class="form-control korbanv" placeholder="" >
 		</div>
 	</div>
 	<div class="col-sm-6 col-md-2">
 		<div class="form-group">
 			<label class="form-label">L.Berat</label>
-			<input type="text" id="lb" name="lb" class="form-control" placeholder="" >
+			<input type="text" id="lb" name="lb" class="form-control korbanv" placeholder="" >
 		</div>
 	</div>
 	<div class="col-sm-6 col-md-2">
 		<div class="form-group">
 			<label class="form-label">L.Ringan</label>
-			<input type="text" id="lr" name="lr" class="form-control" placeholder="" >
+			<input type="text" id="lr" name="lr" class="form-control korbanv" placeholder="" >
 		</div>
 	</div>
 </div>
@@ -116,12 +125,12 @@ $cols.="jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile";
 function mappicker(lat,lng){
 	window.open(base_url+"map?lat="+$(lat).val()+"&lng="+$(lng).val(),"MapWindow","width=830,height=500,location=no").focus();
 }
-function jenischanged(tv){
-	if(tv=='Yan Aduan'){
-		$(".aduan").show();
+function adatidak(tv){
+	if(tv=='Ada'){
+		$(".korban").show();
 	}else{
-		$("#jenisd").val("");
-		$(".aduan").hide();
+		$(".korbanv").val("0");
+		$(".korban").hide();
 	}
 }
 jvalidate = $("#myf").validate({
@@ -153,4 +162,10 @@ timepicker();
 $(".is-invalid").removeClass("is-invalid");
 $(".is-valid").removeClass("is-valid");
 
+function contentcallback(){
+	adatidak('');
+}
+function reccallback(){
+	adatidak($("#korban").val());
+}
 </script>
