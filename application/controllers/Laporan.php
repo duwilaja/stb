@@ -120,6 +120,13 @@ class Laporan extends CI_Controller {
 				$data['media'] = ($this->db->select('val,txt')->where('grp','media')->get('lov')->result_array());
 				$data['sasaran'] = ($this->db->select('val,txt')->where('grp','sasaran')->get('lov')->result_array());
 			}
+			if($id=='coll_rawan'){  //
+				$data['jenis'] = ($this->db->select('val,txt')->where('grp','kat_rawan')->get('lov')->result_array());
+			}
+			
+			if($id=='emergency'){  //
+				$data['jenis'] = ($this->db->select('val,txt')->where('grp','kat_emergency')->get('lov')->result_array());
+			}
 			
 			$this->load->view("formulir/$id",$data); //load the view
 			

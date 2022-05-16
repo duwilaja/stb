@@ -264,22 +264,18 @@ function getRec(){
 				$.each(json['msgs'][0],function (key,val){
 					$("[name='"+key+"']").val(val);
 				});
-				subQ(json['msgs'][0]);
+				if(typeof(reccallback)=='function') reccallback(json);
+				//subQ(json['msgs'][0]);
 			}else{
 				log(json['msgs']);
 			}
-			if(typeof(reccallback)=='function') reccallback();
 		},
 		error: function(xhr){
 			log('Please check your connection'+xhr);
 		}
 	});
 }
-function subQ(dat){
-	if(view=='tmc_ops_pol'||view=='tmc_ops_macet'){
-		getSubQ('laporan/get_subq',$("#penyebab").val(),'#penyebabd',dat['penyebabd'],'','penyebab_macet_d','detil as v,detil as t','sebab');
-	}
-}
+
 </script>
 
   </body>
