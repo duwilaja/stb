@@ -40,9 +40,10 @@ class Profile extends CI_Controller {
 			$data['dinas'] = comboopts($this->db->select('din_id as v,din_nam as t')->get('dinas')->result());
 			//$data['bagian'] = comboopts($this->db->select('bag_id as v,bag_nam as t')->get('bagian')->result());
 			$data['specs'] = comboopts($this->db->select('spec_id as v,spec_nam as t')->get('spesialisasi')->result());
-			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
-			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
-			
+			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+            $data['grp'] = $this->db->select('distinct(grp) as grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("grp")->get('formulir')->result_array();
+            
 			if($user["wasdal"]=="Y"){
 				$data['units'] = $this->db->select('unit_id,unit_nam')->order_by("unit_nam")->get('unit')->result_array();
 				$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,unit')->like('tipe','R')->where(array("isactive"=>"Y"))->order_by("unit,nama_laporan")->get('formulir')->result_array();

@@ -14,8 +14,9 @@ class Home extends CI_Controller {
 		$user=$this->session->userdata('user_data');
 		if(isset($user)){
 			$data['session'] = $user;
-			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
-			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+            $data['grp'] = $this->db->select('distinct(grp) as grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("grp")->get('formulir')->result_array();
             
 			if($user["wasdal"]=="Y"){
 				$data['units'] = $this->db->select('unit_id,unit_nam')->order_by("unit_nam")->get('unit')->result_array();
