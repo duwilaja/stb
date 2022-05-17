@@ -176,6 +176,8 @@ $(document).ready(function () {
 	getData("./Api_indicar/get_token").then((data) => {
 		indicarKey = data;
 	});*/
+	var datakus=[{lat:-6.175392,lng: 106.827153,lokasi:"Nama Lokasi", ket: "Keterangannya"},{lat:-6.185392,lng: 106.817153,lokasi:"Nama Lokasi 2", ket: "Keterangannya Lagi"}];
+	drawMarkers(datakus);
 	
 });
 
@@ -184,6 +186,19 @@ const createMarker = ({ map, position }) => {
 	new google.maps.Marker({ map, position });
 };
 */
+var marks=L.layerGroup();
+
+function drawMarkers(datas){
+	var br='<br />';
+	for(var i=0;i<datas.length;i++){
+	  var data=datas[i];
+	  var txt='<b>'+data['lokasi']+'</b>'+br+data['ket'];
+	  //icon = L.AwesomeMarkers.icon({icon: 'circle-o', prefix: 'fa', markerColor: color});//, className: 'awesome-marker awesome-marker-square'});
+	  var mark = L.marker([data['lat'], data['lng']], {}).bindPopup(txt,{autoClose:false});
+	  marks.addLayer(mark);
+	}
+	mymap.addLayer(marks);
+}
 
 function updateMarker(marker, latitude, longitude, color, angel, vehiclename) {
 	var newLatLng = new L.LatLng(latitude, longitude);
