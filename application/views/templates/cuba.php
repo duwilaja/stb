@@ -214,12 +214,17 @@ if(count($farr)>0&&$session['nrp']!=''){
                                             }?>
                                     </ul>
                                 </li-->
-                                <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="server"></i><span>Data</span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
+								<?php
+								if(isset($grp)){
+									foreach ($grp as $g) {
+								?>
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="server"></i><span><?php echo $g['grp']?></span><div class="according-menu"><i class="fa fa-angle-right"></i></div></a>
                                     <ul class="sidebar-submenu" style="display: none;">
                                     <?php
                                         if(isset($rekap)){
                                             foreach ($rekap as $v) {
 												//if($v['unit']==$session['unit']){
+												if($v['grp']==$g['grp']){
                                         ?>
                                         <li>
                                             <a class="sidebar-link sidebar-title link-nav"  style="font-size: 12px;" href="#" onclick="ambil_isi('<?php echo $v['v']?>','rekap','<?php echo $v['t']?>');">
@@ -228,10 +233,15 @@ if(count($farr)>0&&$session['nrp']!=''){
                                         </li>
                                         <?php 
 												//}
+												}
 											}
                                         }?>
                                     </ul>
                                 </li>
+								<?php 
+									}//end each grp
+								}//end if grp
+								?>
 								<li class="sidebar-list">
                                     <a class="sidebar-link" href="<?=base_url('History')?>">
                                         <i data-feather="server"></i><span>Summary</span>

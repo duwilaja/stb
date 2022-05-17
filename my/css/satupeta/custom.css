@@ -1,0 +1,437 @@
+/* Always set the map height explicitly to define the size of the div
+  * element that contains the map. */
+  #mapid {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;  
+  }
+
+  .leaflet-control-container .leaflet-routing-container-hide {
+    position: absolute;
+    left: 0;
+  }
+  
+  /* Optional: Makes the sample page fill the window. */
+  html,
+  body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+  }
+  .img-circle {
+      border-radius: 50%;
+  }
+  .c-abu{
+      color:#CCC;
+  }
+  .list-rwy{
+      font-size: 12px;
+  }
+  .floating-panel {
+      position: absolute;
+      top: 30px;
+      right: 80px;
+      z-index: 1000;
+      /* background-color: #fff; */
+      padding: 5px;
+      text-align: center;
+      font-family: "Roboto", "sans-serif";
+      opacity: 0.9;
+      /* line-height: 30px; */
+      /* padding-left: 10px; */
+  }
+
+  .menus {
+      position: absolute;
+      top: 100px;
+      z-index: 1000;
+      background-color: #fff;
+      padding: 5px;
+      text-align: center;
+      font-family: "Roboto", "sans-serif";
+      opacity: 0.9;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      /* line-height: 30px; */
+      /* padding-left: 10px; */
+  }
+  
+  .icons {
+      display: inline-flex!important;
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      border-radius: 50% !important;
+      align-items: center;
+      justify-content: center;
+      font-size:30px!important;
+  }
+  
+  .info-jarak{
+      background: aliceblue;
+      font-size: 12px;
+      padding: 3px;
+      border-radius: 2px;
+      text-align: center
+  }
+
+  #list_cctv_korlantas,#list_cctv_dishub,#list_lokasi_polisi,#list_lokasi_rumah_sakit,#list_lokasi_damkar,#list_lokasi_dishub,#list_vip,#list_laka,#list_macet,#list_longsor,#list_banjir,#list_pohon_tumbang,#list_tindak_pidana{
+    margin: 5px;
+    padding: 5px;
+    height: 300px;
+    font-size: 12px;
+    overflow: auto;
+  }
+
+  /*******************************
+  * MODAL AS LEFT/RIGHT SIDEBAR
+  * Add "left" or "right" in modal parent div, after class="modal".
+  * Get free snippets on bootpen.com
+  *******************************/
+  .modal-left.left .modal-dialog,
+  .modal-left.right .modal-dialog {
+      position: fixed;
+      margin: auto;
+      width: 320px;
+      height: 100%;
+      -webkit-transform: translate3d(0%, 0, 0);
+      -ms-transform: translate3d(0%, 0, 0);
+      -o-transform: translate3d(0%, 0, 0);
+      transform: translate3d(0%, 0, 0);
+  }
+  
+  .modal-left.left .modal-content,
+  .modal-left.right .modal-content {
+      height: 100%;
+      overflow-y: auto;
+  }
+  
+  .modal-left.left .modal-body,
+  .modal-left.right .modal-body {
+      padding: 15px 15px 80px;
+  }
+  
+  /*Left*/
+  .modal-left.left.fade .modal-dialog{
+      left: -320px;
+      -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+      -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+      -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+      transition: opacity 0.3s linear, left 0.3s ease-out;
+  }
+  
+  .modal-left.left.fade.in .modal-dialog{
+      left: 0;
+  }
+  
+  /*Right*/
+  .modal-left.right.fade .modal-dialog {
+      right: -320px;
+      -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+      -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+      -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+      transition: opacity 0.3s linear, right 0.3s ease-out;
+  }
+  
+  .modal-left.right.fade.in .modal-dialog {
+      right: 0;
+  }
+  
+  /* ----- MODAL STYLE ----- */
+  .modal-content {
+      border-radius: 0;
+      border: none;
+  }
+  
+  .modal-header {
+      border-bottom-color: #EEEEEE;
+      background-color: #FAFAFA;
+  }
+  
+  .btn-demo {
+      margin: 15px;
+      padding: 10px 15px;
+      border-radius: 0;
+      font-size: 16px;
+      background-color: #FFFFFF;
+  }
+  
+  .btn-demo:focus {
+      outline: 0;
+  }
+  
+  .demo-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 15px;
+      background-color: #212121;
+      text-align: center;
+  }
+  
+  .demo-footer > a {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      color: #fff;
+  }
+
+  .txt-status{
+      border: solid 1px #9e9e9e;
+      padding: 2px 6px;
+      border-radius: 3px;
+      display: inline-flex;
+      font-size: 10px;
+      color: #9e9e9e;
+      margin: 5px 0px;
+  }
+
+  .my-custom-class-for-label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+  
+  .iconss {
+  display: inline-flex!important;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50% !important;
+  align-items: center;
+  justify-content: center;
+  font-size:15px!important;
+  }
+
+  a:link {
+    text-decoration:none!important;
+  }
+
+  iframe {
+  height: 100%;
+  min-height: 40px;
+  }
+
+  .popover {
+    max-width: 400px;
+  }
+
+  .panel2 {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    font-family: "Roboto", "sans-serif";
+    height: auto;
+    width: 380px;
+    border-radius:10px ;
+    /* line-height: 30px; */
+    /* padding-left: 10px; */
+  }
+
+  .panel3 {
+    position: absolute;
+    top: 75px;
+    right: -15px;
+    /* z-index: 5; */
+    font-family: "Roboto", "sans-serif";
+  }
+
+  .button_wrap{
+      position: relative;
+      /* width: 200px; */
+      height:40px;
+      /* overflow:hidden; */
+      font-weight:bold;
+      font-size:11px;
+      margin:10px;
+  }
+  .button_aLeft{
+      width:40px;
+      height:40px;
+      -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+      background-color:#fff;
+      color:black;
+      top:0px;
+      right:0px;
+      position:absolute;
+      line-height:36px;
+      text-align:left;
+  }
+  .button_aLeft span{
+      display:none;
+      padding-left:20px;
+  }
+  .button_bLeft{
+      width:40px;
+      /* height:30px; */
+      background-color:#fff;
+      -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+      color:#000;
+      position:absolute;
+      top:0px;
+      right:0px;
+      text-transform:uppercase;
+      line-height:30px;
+      text-align:center;
+      cursor:pointer;
+  }
+  .button_bLeft span{
+      color:#008ddd;
+  }
+
+  .btn-slider{
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    height: 45px;
+    width: 65px;
+    text-align: center;
+    background: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: left 0.4s ease;
+    z-index: 1000;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    opacity:0.9;
+  }
+  .btn-slider.click{
+    left: 698px;
+    z-index: 1000;
+  }
+  .btn-slider i{
+    color: black;
+    font-size: 20px;
+    line-height: 45px;
+  }
+  .btn-slider.click i:before{
+    content: '\f100';
+    z-index: 1000;
+  }
+  .sidebar{
+    position: fixed;
+    width: 700px;
+    height: 550px;
+    top:100px;
+    left: -700px;
+    background: #fff;
+    transition: left 0.4s ease;
+    z-index: 1000;
+    opacity:0.9;
+    /* overflow:auto; */
+  }
+  .sidebar.show{
+    left: 0px;
+    top: 100px;
+    z-index:1000;
+  }
+
+  .side .nav-link {
+    border-radius: 3px;
+    background: #F1F1F1;
+    color: #888888;
+  }
+
+  .konten-sider {
+    /* margin: 5px;
+    padding: 5px; */
+    height: 380px;
+    /* overflow-y: auto; */
+  }
+
+  .check {
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 12px;
+    width: 6px;
+    border-bottom: 3px solid #78b13f;
+    border-right: 3px solid #78b13f;
+    position: absolute;
+    right: 5px;
+  }
+
+  @keyframes fade { 
+    from { opacity: 0.5; } 
+  }
+
+  .blinking {
+    animation: fade 0.5s infinite alternate;
+  }
+  
+  .position-marker-custom{
+    margin-top: -10px;
+    margin-left: -16px;
+  }
+
+  .jml_data_group {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jml_data {
+    position: relative;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    background-color: white;
+    left: 12px;
+    top: 90px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .jml_data_img {
+    height: 30px;
+    width: 30px;
+  }
+
+  .filter_data{
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left:50px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .heat_data{
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left:130px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .heat_kecelakaan{
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left:235px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .content-filter{
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left:140px;
+    /* background-color: white; */
+    /* padding: 10px; */
+    border-radius: 5px;
+  }
