@@ -11,7 +11,7 @@ function PlaySound() {
 var mk = [];
 
 let mymap = new L.Map('mapid', {
-    center: new L.LatLng(-6.175392, 106.827153), //new L.LatLng(-7.558865108655025, 110.82722410076913), //oslo
+    center: new L.LatLng(-6.175540717418276,106.82719230651857), //new L.LatLng(-7.558865108655025, 110.82722410076913), //oslo
     zoom: 12,
 	scrollWheelZoom: false, // disable original zoom function
 	smoothWheelZoom: true,  // enable smooth zoom 
