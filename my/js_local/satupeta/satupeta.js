@@ -1,7 +1,7 @@
 var x = document.getElementById("myAudio");
 var waypoint = [];
 
-var hostname = window.location.hostname != 'backoffice.elingsolo.com' ? 'backoffice.elingsolo.com' : window.location.hostname;
+var hostname = window.location.hostname;// != 'backoffice.elingsolo.com' ? 'backoffice.elingsolo.com' : window.location.hostname;
 
 function PlaySound() { 
   x.autoplay = true;
@@ -176,9 +176,11 @@ $(document).ready(function () {
 	getData("./Api_indicar/get_token").then((data) => {
 		indicarKey = data;
 	});*/
-	var datakus=[{lat:-6.175392,lng: 106.827153,lokasi:"Nama Lokasi", ket: "Keterangannya"},{lat:-6.185392,lng: 106.817153,lokasi:"Nama Lokasi 2", ket: "Keterangannya Lagi"}];
-	drawMarkers(datakus);
-	
+	//var datakus=[{lat:-6.175392,lng: 106.827153,lokasi:"Nama Lokasi", ket: "Keterangannya"},{lat:-6.185392,lng: 106.817153,lokasi:"Nama Lokasi 2", ket: "Keterangannya Lagi"}];
+	//drawMarkers(datakus,"Label nja");
+	datasGet("coll_obj","Object Vital");
+	datasGet("coll_rawan","Wilayah Rawan");
+	datasGet("emergency","Emergency");
 });
 
 /*
@@ -186,9 +188,26 @@ const createMarker = ({ map, position }) => {
 	new google.maps.Marker({ map, position });
 };
 */
-var marks=L.layerGroup();
+var layerControl = L.control.layers(null, {}).addTo(mymap);
 
-function drawMarkers(datas){
+function datasGet(t,l){
+	$.ajax({
+		type: 'POST',
+		url: 'peta/datas',
+		data: {q:t},
+		success: function(data){
+			var json=JSON.parse(data);
+			drawMarkers(json,l);
+		},
+		error: function(xhr,stts){
+			console.log('Please check your connection'+stts);
+			console.log(xhr);
+		}
+	});
+}
+
+function drawMarkers(datas,label){
+	var marks=L.layerGroup();
 	var br='<br />';
 	for(var i=0;i<datas.length;i++){
 	  var data=datas[i];
@@ -198,6 +217,7 @@ function drawMarkers(datas){
 	  marks.addLayer(mark);
 	}
 	mymap.addLayer(marks);
+	layerControl.addOverlay(marks , label);
 }
 
 function updateMarker(marker, latitude, longitude, color, angel, vehiclename) {
