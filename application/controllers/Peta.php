@@ -21,5 +21,33 @@ class Peta extends CI_Controller {
 
 		$this->load->view('satupeta',$data);
 	}
+	
+	public function datas(){
+		$q=$this->input->post("q");
+		$id=$this->input->post("id");
+		$sql="";
+		switch($q){
+			case "coll_obj": $sql="select lat,lng,concat('(Object Vital) ',nama) as lokasi,detil as ket from $q"; 
+				if($id!="") $sql="select * from $q where rowid=$id";
+				break;
+			case "coll_rawan": $sql="select lat,lng,concat('(Wilayah Rawan) ',lokasi) as lokasi,concat(kategori,' ',penyebab) as ket from $q"; 
+				if($id!="") $sql="select * from $q where rowid=$id";
+				break;
+			case "emergency": $sql="select lat,lng,concat('(Emergency) ',lokasi) as lokasi,concat(kategori,' ',penyebab) as ket from $q"; 
+				if($id!="") $sql="select * from $q where rowid=$id";
+				break;
+			case "rengiat_wal": $sql="select lat,lng,concat('(Giat Pengawalan) ',lokasi) as lokasi,concat(kategori,' ',obj,' ',nama) as ket from $q"; 
+				if($id!="") $sql="select * from $q where rowid=$id";
+				break;
+			case "rengiat_suluh": $sql="select lat,lng,concat('(Giat Penyuluhan) ',lokasi) as lokasi,concat(kategori,' ',sasaran,' ',media) as ket from $q"; 
+				if($id!="") $sql="select * from $q where rowid=$id";
+				break;
+		}
+		
+		$query=$this->db->query($sql);
+		$output=$query->result();
+		
+		echo json_encode($output);
+	}
 
 }
