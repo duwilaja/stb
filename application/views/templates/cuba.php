@@ -205,8 +205,9 @@ if (count($farr) > 0 && $session['nrp'] != '') {
                                     <?php
                                     if (isset($grp)) {
                                         foreach ($grp as $g) {
+											$icon=$g['icon']==""?"server":$g["icon"];
                                     ?>
-                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="alert-triangle"></i><span><?php echo $g['grp'] ?></span>
+                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="<?php echo $icon?>"></i><span><?php echo $g['grp'] ?></span>
                                                     <div class="according-menu"><i class="fa fa-angle-right"></i></div>
                                                 </a>
                                                 <ul class="sidebar-submenu" style="display: none;">
@@ -234,7 +235,7 @@ if (count($farr) > 0 && $session['nrp'] != '') {
                                     ?>
                                     <li class="sidebar-list">
                                         <a class="sidebar-link" href="<?= base_url('History') ?>">
-                                            <i data-feather="server"></i><span>Summary</span>
+                                            <i data-feather="bar-chart-2"></i><span>Summary</span>
                                         </a>
                                     </li>
                                 </ul>

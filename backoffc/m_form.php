@@ -52,6 +52,7 @@ include "inc.menutop.php";
 									<tr>
 										<th>Unit</th>
 										<th>Grp</th>
+										<th>Icon</th>
 										<th>Nama</th>
 										<th>View</th>
 										<th>IsActive</th>
@@ -82,7 +83,7 @@ include "inc.menutop.php";
 <input type="hidden" name="rowid" id="rowid" value="0">
 <input type="hidden" name="mnu" value="<?php echo $menu?>">
 <input type="hidden" id="sv" name="sv" />
-<input type="hidden" name="cols" value="unit,grp,nama_laporan,view_laporan,isactive,tipe,view_field" />
+<input type="hidden" name="cols" value="unit,grp,nama_laporan,view_laporan,isactive,tipe,view_field,icon" />
 <input type="hidden" name="tname" value="formulir" />
 		
 		  <div class="row">
@@ -95,6 +96,12 @@ include "inc.menutop.php";
 			<div class="form-group col-md-12">
 				<label>Grp</label>
 				<input type="text" id="grp" name="grp" placeholder="..." class="form-control">
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="form-group col-md-12">
+				<label>Icon</label>
+				<input type="text" id="icon" name="icon" placeholder="..." class="form-control">
 			</div>
 		  </div>
 		  <div class="row">
@@ -152,7 +159,7 @@ include "inc.foot.php";
 include "inc.js.php";
 
 $tname="formulir";
-$cols="unit,grp,nama_laporan,view_laporan,isactive,tipe,rowid";
+$cols="unit,grp,icon,nama_laporan,view_laporan,isactive,tipe,rowid";
 $csrc="unit,nama_laporan,view_laporan";
 
 ?>
