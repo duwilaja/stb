@@ -20,8 +20,8 @@ if (count($farr) > 0 && $session['nrp'] != '') {
     <meta name="description" content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="<?php echo $base_url; ?>cuba/assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="<?php echo $base_url; ?>cuba/assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" type="image/x-icon">
     <title>Smart Teritory</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
@@ -166,12 +166,12 @@ if (count($farr) > 0 && $session['nrp'] != '') {
             <div class="sidebar-wrapper">
                 <div>
                     <div class="logo-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid for-light" src="<?php echo $base_url; ?>cuba/assets/images/logo.png" alt="" width="150px">
-                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/logo/logo_dark.png" alt=""></a>
+                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/sm-teritory2.png" style="width : 50%;" alt=""></a>
                         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
                         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid">
                             </i></div>
                     </div>
-                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo/logo-icon.png" alt=""></a></div>
+                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" alt=""></a></div>
                     <nav class="sidebar-main">
                         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                         <?php if ($session['wasdal'] == 'N') { ?>
