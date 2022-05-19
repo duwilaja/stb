@@ -181,6 +181,8 @@ $(document).ready(function () {
 	datasGet("coll_obj","Object Vital");
 	datasGet("coll_rawan","Wilayah Rawan");
 	datasGet("emergency","Emergency");
+	datasGet("rengiat_wal","Pengawalan");
+	datasGet("rengiat_suluh","Penyuluhan");
 });
 
 /*
