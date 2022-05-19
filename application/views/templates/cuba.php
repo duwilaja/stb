@@ -166,12 +166,12 @@ if (count($farr) > 0 && $session['nrp'] != '') {
             <div class="sidebar-wrapper">
                 <div>
                     <div class="logo-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid for-light" src="<?php echo $base_url; ?>cuba/assets/images/logo.png" alt="" width="150px">
-                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/logo/logo_dark.png" alt=""></a>
+                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/sm-teritory2.png" style="width : 50%;" alt=""></a>
                         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
                         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid">
                             </i></div>
                     </div>
-                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo/logo-icon.png" alt=""></a></div>
+                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" alt=""></a></div>
                     <nav class="sidebar-main">
                         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                         <?php if ($session['wasdal'] == 'N') { ?>
@@ -206,7 +206,7 @@ if (count($farr) > 0 && $session['nrp'] != '') {
                                     if (isset($grp)) {
                                         foreach ($grp as $g) {
                                     ?>
-                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="server"></i><span><?php echo $g['grp'] ?></span>
+                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="alert-triangle"></i><span><?php echo $g['grp'] ?></span>
                                                     <div class="according-menu"><i class="fa fa-angle-right"></i></div>
                                                 </a>
                                                 <ul class="sidebar-submenu" style="display: none;">

@@ -1,46 +1,47 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-$cols="nrp,unit,polda,polres,dinas,subdinas,tgl,";
-$cols.="jam,detil,lokasi,lat,lng,kategori,penyebab";
+$cols = "nrp,unit,polda,polres,dinas,subdinas,tgl,";
+$cols .= "jam,detil,lokasi,lat,lng,kategori,penyebab";
 ?>
 <input type="hidden" name="path" value="coll_rawan">
 
 <input type="hidden" name="tablename" value="coll_rawan">
-<input type="hidden" name="fieldnames" value="<?php echo $cols?>">
+<input type="hidden" name="fieldnames" value="<?php echo $cols ?>">
 
-<!--input type="hidden" name="tgl" value="<?php echo date('Y-m-d')?>"-->
+<!--input type="hidden" name="tgl" value="<?php echo date('Y-m-d') ?>"-->
 
 <div class="row">
-	<div class="col-sm-6 col-md-3">
+	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Tanggal</label>
-			<input readonly type="text" id="tgl" name="tgl" class="form-control" placeholder="[auto]" value="<?php echo date('Y-m-d')?>" >
+			<input readonly type="text" id="tgl" name="tgl" class="form-control" placeholder="[auto]" value="<?php echo date('Y-m-d') ?>">
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-2">
+	<div class="col-sm-6 col-md-3">
 		<div class="form-group">
 			<label class="form-label">Jam</label>
-			<input readonly type="text" id="jam" name="jam" class="form-control" placeholder="[auto]" value="<?php echo date('H:i:s')?>" >
+			<input readonly type="text" id="jam" name="jam" class="form-control" placeholder="[auto]" value="<?php echo date('H:i:s') ?>">
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-5">
+		<div class="form-group">
+			<label class="form-label">Lokasi</label>
+			<input type="text" id="lokasi" name="lokasi" class="form-control" placeholder="">
 		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-6 col-md-4">
-		<div class="form-group">
-			<label class="form-label">Lokasi</label>
-			<input type="text" id="lokasi" name="lokasi" class="form-control" placeholder="" >
-		</div>
-	</div>
-	<div class="col-sm-6 col-md-2">
+
+	<div class="col-sm-6 col-md-6">
 		<div class="form-group">
 			<label class="form-label">Latitude</label>
-			<input type="text" id="lat" name="lat" class="form-control" placeholder="" >
+			<input type="text" id="lat" name="lat" class="form-control" placeholder="">
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-2">
+	<div class="col-sm-6 col-md-5">
 		<div class="form-group">
 			<label class="form-label">Longitude</label>
-			<input type="text" id="lng" name="lng" class="form-control" placeholder="" >
+			<input type="text" id="lng" name="lng" class="form-control" placeholder="">
 		</div>
 	</div>
 	<div class="col-sm-6 col-md-1">
@@ -49,21 +50,21 @@ $cols.="jam,detil,lokasi,lat,lng,kategori,penyebab";
 			<button type="button" class="btn btn-danger" onclick="mappicker('#lat','#lng');"><i class="fa fa-map-marker"></i></button>
 		</div>
 	</div>
-	
+
 </div>
 <div class="row">
-	<div class="col-sm-6 col-md-3">
+	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Kategori</label>
 			<select id="kategori" name="kategori" class="form-select" placeholder="" onchange="getSubQ('laporan/get_subq',this.value,'#penyebab','','','lov','val as v,txt as t','grp');">
 				<option value=""></option>
-<?php for($i=0;$i<count($jenis);$i++){?>
-<option value="<?php echo $jenis[$i]['val']?>"><?php echo $jenis[$i]['txt']?></option>
-<?php }?>
+				<?php for ($i = 0; $i < count($jenis); $i++) { ?>
+					<option value="<?php echo $jenis[$i]['val'] ?>"><?php echo $jenis[$i]['txt'] ?></option>
+				<?php } ?>
 			</select>
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-3">
+	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Penyebab</label>
 			<select id="penyebab" name="penyebab" class="form-select" placeholder="">
@@ -74,7 +75,7 @@ $cols.="jam,detil,lokasi,lat,lng,kategori,penyebab";
 	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Detil</label>
-			<textarea id="detil" name="detil" class="form-control" placeholder="" ></textarea>
+			<textarea id="detil" name="detil" class="form-control" placeholder=""></textarea>
 		</div>
 	</div>
 
@@ -101,50 +102,52 @@ $cols.="jam,detil,lokasi,lat,lng,kategori,penyebab";
 
 
 <script>
-function mappicker(lat,lng){
-	window.open(base_url+"map?lat="+$(lat).val()+"&lng="+$(lng).val(),"MapWindow","width=830,height=500,location=no").focus();
-}
-function jenischanged(tv){
-	if(tv=='Yan Aduan'){
-		$(".aduan").show();
-	}else{
-		$("#jenisd").val("");
-		$(".aduan").hide();
+	function mappicker(lat, lng) {
+		window.open(base_url + "map?lat=" + $(lat).val() + "&lng=" + $(lng).val(), "MapWindow", "width=830,height=500,location=no").focus();
 	}
-}
-jvalidate = $("#myf").validate({
-    rules :{
-        "formulir" : {
-            required : true
-        },
-		"dasar" : {
-            required : true
-        },
-		"nomor" : {
-			required : true
-		},
-		"lat" : {
-			required : true
-		},
-		"lng" : {
-			required : true
+
+	function jenischanged(tv) {
+		if (tv == 'Yan Aduan') {
+			$(".aduan").show();
+		} else {
+			$("#jenisd").val("");
+			$(".aduan").hide();
 		}
-    }});
-
-$("#btn_save").show();
-$(".dasar").show();
-$(".nomor").show();
-
-datepicker(true);
-timepicker();
-
-$(".is-invalid").removeClass("is-invalid");
-$(".is-valid").removeClass("is-valid");
-
-function reccallback(json){
-	if(json['code']=='200'){
-		var dat=json['msgs'][0];
-		getSubQ('laporan/get_subq',$("#kategori").val(),'#penyebab',dat['penyebab'],'','lov','val as v,txt as t','grp');
 	}
-}
+	jvalidate = $("#myf").validate({
+		rules: {
+			"formulir": {
+				required: true
+			},
+			"dasar": {
+				required: true
+			},
+			"nomor": {
+				required: true
+			},
+			"lat": {
+				required: true
+			},
+			"lng": {
+				required: true
+			}
+		}
+	});
+
+	$("#btn_save").show();
+	$(".dasar").show();
+	$(".nomor").show();
+
+	datepicker(true);
+	timepicker();
+
+	$(".is-invalid").removeClass("is-invalid");
+	$(".is-valid").removeClass("is-valid");
+
+	function reccallback(json) {
+		if (json['code'] == '200') {
+			var dat = json['msgs'][0];
+			getSubQ('laporan/get_subq', $("#kategori").val(), '#penyebab', dat['penyebab'], '', 'lov', 'val as v,txt as t', 'grp');
+		}
+	}
 </script>

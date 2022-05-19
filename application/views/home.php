@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <div class="row">
-	<div class="col-lg-12">
-		<div class="alert alert-success" role="alert">
+
+	<div class="col-sm-12">
+		<div class="card alert alert-success" role="alert">
+			<!-- <h4 class="alert-heading">Tip!</h4> -->
 			<!--button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 		Welcome <?php echo $session['nama'] ?> @ <?php echo $session['unit'] ?>-->Laporan Masuk
 		</div>
