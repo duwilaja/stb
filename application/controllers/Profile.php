@@ -42,7 +42,7 @@ class Profile extends CI_Controller {
 			$data['specs'] = comboopts($this->db->select('spec_id as v,spec_nam as t')->get('spesialisasi')->result());
 			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
 			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
-            $data['grp'] = $this->db->select('distinct(grp) as grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("grp")->get('formulir')->result_array();
+            $data['grp'] = $this->db->distinct()->select('grp,icon')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("grp")->get('formulir')->result_array();
             
 			if($user["wasdal"]=="Y"){
 				$data['units'] = $this->db->select('unit_id,unit_nam')->order_by("unit_nam")->get('unit')->result_array();
