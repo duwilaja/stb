@@ -407,8 +407,8 @@
         </div>
       </div>
     </div>
-    <div class="filter_data" id="" onclick="history.go(-1);" style="padding: 7px;">
-      <span><i class="fa fa-home" style="font-size: 30px; color: #adadad"></i></span>
+    <div class="filter_data" id="" onclick="" style="padding: 7px;">
+      <a href="home"><span><i class="fa fa-home" style="font-size: 30px; color: #adadad"></i></span></a>
     </div>
 	<div class="filter_data" id="menu-filter" onclick="fltr()" style="display: none">
       <span>Filter&nbsp;&nbsp;<i class="fa fa-search"></i></span>
