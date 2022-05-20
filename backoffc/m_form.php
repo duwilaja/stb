@@ -71,7 +71,7 @@ include "inc.menutop.php";
 
 <!-- Modal-->
 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left modal_form">
-  <div role="document" class="modal-dialog">
+  <div role="document" class="modal-dialog  modal-lg">
 	<div class="modal-content">
 	  <div class="modal-header"><strong id="exampleModalLabel" class="modal-title"><?php echo $modal_title?></strong>
 		<button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">x</span></button>
@@ -87,37 +87,37 @@ include "inc.menutop.php";
 <input type="hidden" name="tname" value="formulir" />
 		
 		  <div class="row">
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-6">
 				<label>Unit</label>
 				<input type="text" id="unit" name="unit" placeholder="..." class="form-control">
 			</div>
-		  </div>
-		  <div class="row">
-			<div class="form-group col-md-12">
+		  <!--/div>
+		  <div class="row"-->
+			<div class="form-group col-md-6">
 				<label>Grp</label>
 				<input type="text" id="grp" name="grp" placeholder="..." class="form-control">
 			</div>
 		  </div>
 		  <div class="row">
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-6">
 				<label>Icon</label>
 				<input type="text" id="icon" name="icon" placeholder="..." class="form-control">
 			</div>
-		  </div>
-		  <div class="row">
-			<div class="form-group col-md-12">
+		  <!--/div>
+		  <div class="row"-->
+			<div class="form-group col-md-6">
 				<label>Nama</label>
 				<input type="text" id="nama_laporan" name="nama_laporan" placeholder="..." class="form-control">
 			</div>
 		  </div>
 		  <div class="row">
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-6">
 				<label>View</label>
 				<input type="text" id="view_laporan" name="view_laporan" placeholder="..." class="form-control">
 			</div>
-		  </div>
-		  <div class="row">
-			<div class="form-group col-md-12">
+		  <!--/div>
+		  <div class="row"-->
+			<div class="form-group col-md-6">
 				<label>IsActive</label>
 				<select id="isactive" name="isactive" class="form-control">
 					<option value="Y">Y</option>
@@ -126,7 +126,7 @@ include "inc.menutop.php";
 			</div>
 		  </div>
 		  <div class="row">
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-6">
 				<label>Tipe</label>
 				<select id="tipe" name="tipe" class="form-control">
 					<option value="FR">FR</option>
@@ -134,9 +134,9 @@ include "inc.menutop.php";
 					<option value="R">R</option>
 				</select>
 			</div>
-		  </div>
-		  <div class="row">
-			<div class="form-group col-md-12">
+		  <!--/div>
+		  <div class="row"-->
+			<div class="form-group col-md-6">
 				<label>Fields</label>
 				<input type="text" id="view_field" name="view_field" placeholder="..." class="form-control">
 			</div>

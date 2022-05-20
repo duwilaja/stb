@@ -407,7 +407,10 @@
         </div>
       </div>
     </div>
-    <div class="filter_data" id="menu-filter" onclick="fltr()" style="display: none">
+    <div class="filter_data" id="" onclick="history.go(-1);" style="padding: 7px;">
+      <span><i class="fa fa-home" style="font-size: 30px; color: #adadad"></i></span>
+    </div>
+	<div class="filter_data" id="menu-filter" onclick="fltr()" style="display: none">
       <span>Filter&nbsp;&nbsp;<i class="fa fa-search"></i></span>
     </div>
     <div class="heat_data" id="menu-trfflow" onclick="trfflow()" style="display: none">
