@@ -89,53 +89,54 @@ $base_url = base_url();
 		<!-- Page Body Start-->
 		<div class="page-body-wrapper">
 			<div class="page-body">
-				<div class="container">
-					<!-- Row -->
-					<div class="row justify-content-center">
-						<div class="col-lg-12">
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">Form <?php echo $v->nama_laporan ?></h3>
 
-								</div>
-								<div class="card-body">
-									<form name="myf" id="myf">
 
-										<!--hidden-->
-										<input type="hidden" name="rowid" id="rowid" value="0" />
-										<input type="hidden" name="nrp" value="<?php echo $session['nrp'] ?>">
-										<input type="hidden" name="polda" value="<?php echo $session['polda'] ?>">
-										<input type="hidden" name="polres" value="<?php echo $session['polres'] ?>">
-										<input type="hidden" name="dinas" value="<?php echo $session['dinas'] ?>">
-										<input type="hidden" name="subdinas" value="<?php echo $session['subdinas'] ?>">
-										<input type="hidden" name="unit" value="<?php echo $session['unit'] ?>">
+				<!-- Row -->
+				<div class="row justify-content-center">
+					<div class="col-lg-12">
+						<div class="card" style="height: 500px ;">
+							<div class="card-header">
+								<h3 class="card-title">Form <?php echo $v->nama_laporan ?></h3>
 
-										<div class="dimmer active ldr hidden">
-											<div class="sk-cube-grid">
-												<div class="sk-cube sk-cube1"></div>
-												<div class="sk-cube sk-cube2"></div>
-												<div class="sk-cube sk-cube3"></div>
-												<div class="sk-cube sk-cube4"></div>
-												<div class="sk-cube sk-cube5"></div>
-												<div class="sk-cube sk-cube6"></div>
-												<div class="sk-cube sk-cube7"></div>
-												<div class="sk-cube sk-cube8"></div>
-												<div class="sk-cube sk-cube9"></div>
-											</div>
+							</div>
+							<div class="card-body">
+								<form name="myf" id="myf">
+
+									<!--hidden-->
+									<input type="hidden" name="rowid" id="rowid" value="0" />
+									<input type="hidden" name="nrp" value="<?php echo $session['nrp'] ?>">
+									<input type="hidden" name="polda" value="<?php echo $session['polda'] ?>">
+									<input type="hidden" name="polres" value="<?php echo $session['polres'] ?>">
+									<input type="hidden" name="dinas" value="<?php echo $session['dinas'] ?>">
+									<input type="hidden" name="subdinas" value="<?php echo $session['subdinas'] ?>">
+									<input type="hidden" name="unit" value="<?php echo $session['unit'] ?>">
+
+									<div class="dimmer active ldr hidden">
+										<div class="sk-cube-grid">
+											<div class="sk-cube sk-cube1"></div>
+											<div class="sk-cube sk-cube2"></div>
+											<div class="sk-cube sk-cube3"></div>
+											<div class="sk-cube sk-cube4"></div>
+											<div class="sk-cube sk-cube5"></div>
+											<div class="sk-cube sk-cube6"></div>
+											<div class="sk-cube sk-cube7"></div>
+											<div class="sk-cube sk-cube8"></div>
+											<div class="sk-cube sk-cube9"></div>
 										</div>
-										<div id="isilaporan">
+									</div>
+									<div id="isilaporan">
 
-										</div>
-									</form>
-								</div>
-								<div class="card-footer text-right">
-									<button type="button" id="btn_save" class="btn btn-primary" onclick="simpanlah();">Simpan Laporan</button>
-								</div>
+									</div>
+								</form>
+							</div>
+							<div class="card-footer text-right">
+								<button type="button" id="btn_save" class="btn btn-primary" onclick="simpanlah();">Simpan Laporan</button>
 							</div>
 						</div>
 					</div>
-					<!-- End Row-->
 				</div>
+				<!-- End Row-->
+
 				<!-- Container-fluid Ends-->
 			</div>
 		</div>

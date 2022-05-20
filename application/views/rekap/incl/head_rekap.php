@@ -29,7 +29,8 @@
 					<a href="#" title="Refresh" style="position: absolute;left:0;bottom:0;" class="btn btn-info" onclick="reload_table();"><i class="fe fe-refresh-cw"></i> Filter</a>
 				</div>
 				<div class="col-md-2">
-					<a class="btn btn-icon btn-success" style="position: absolute;left:0;bottom:0;" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="edit?i=0&t=<?php echo $view ?>">Create</a>
+					<!-- <a href="#" class="btn btn-icon btn-success" id="create" data-toggle="modal" data-target="#exampleModalCenter">Create</a> -->
+					<a class="btn btn-icon btn-success" style="position: absolute;left:0;bottom:0;" href="JavaScript:;" data-fancybox data-options='{"type" : "iframe", "iframe" : {"preload" : false, "css" : {"width" : "1000px"}}}' data-src="edit?i=0&t=<?php echo $view ?>">Create</a>
 				</div>
 			</div>
 		</div>

@@ -205,9 +205,9 @@ if (count($farr) > 0 && $session['nrp'] != '') {
                                     <?php
                                     if (isset($grp)) {
                                         foreach ($grp as $g) {
-											$icon=$g['icon']==""?"server":$g["icon"];
+                                            $icon = $g['icon'] == "" ? "server" : $g["icon"];
                                     ?>
-                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="<?php echo $icon?>"></i><span><?php echo $g['grp'] ?></span>
+                                            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="<?php echo $icon ?>"></i><span><?php echo $g['grp'] ?></span>
                                                     <div class="according-menu"><i class="fa fa-angle-right"></i></div>
                                                 </a>
                                                 <ul class="sidebar-submenu" style="display: none;">
@@ -347,6 +347,7 @@ if (count($farr) > 0 && $session['nrp'] != '') {
     </script>
     <!-- latest jquery-->
     <script src="<?php echo $base_url; ?>cuba/assets/js/jquery-3.5.1.min.js"></script>
+
     <!-- Bootstrap js-->
     <script src="<?php echo $base_url; ?>cuba/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
     <!-- feather icon js-->
