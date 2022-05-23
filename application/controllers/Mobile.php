@@ -135,7 +135,7 @@ class Mobile extends CI_Controller {
 					$retval=array('code'=>"200",'ttl'=>"OK",'msgs'=>$msgs);
 					echo json_encode($retval);
 				}else{
-					$retval=array('code'=>"401",'ttl'=>"Invalid Input",'msgs'=>"Kategori tidak ditemukan");
+					$retval=array('code'=>"401",'ttl'=>"Invalid Input",'msgs'=>"Form tidak ditemukan");
 					echo json_encode($retval);
 				}
 			}else{
