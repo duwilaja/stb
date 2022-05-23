@@ -47,16 +47,18 @@ class Mobile extends CI_Controller {
 	private function tablename($kategori){
 		$tn="";
 		switch($kategori){
-			case "object": $tn="coll_obj"; break;
-			case "rawan": $tn="coll_rawan"; break;
+			case "emergency": $tn="emergency"; break;
+			//case "object": $tn="coll_obj"; break;
+			//case "rawan": $tn="coll_rawan"; break;
 		}
 		return $tn;
 	}
 	private function fieldnames($kategori){
 		$fn="";
 		switch($kategori){
-			case "object": $fn="nrp,tgl,jam,detil,nama,lat,lng"; break;
-			case "rawan": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
+			case "emergency": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
+			//case "object": $fn="nrp,tgl,jam,detil,nama,lat,lng"; break;
+			//case "rawan": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
 		}
 		return $fn;
 	}
@@ -108,7 +110,7 @@ class Mobile extends CI_Controller {
 		if(isset($user)){
 			if($auth==$user){
 				$msgs="Invalid input";
-				$kategori=$this->input->post('kategori');
+				$kategori=$this->input->post('form');
 				$tname=$this->tablename($kategori);
 				$fname=$this->fieldnames($kategori);
 				if($fname!=""&&$tname!=""){
@@ -120,8 +122,8 @@ class Mobile extends CI_Controller {
 					$config['file_ext_tolower'] = true;
 					//$config['overwrite'] = false;
 					$m="";
-					$this->load->library('upload', $config);
 					if(isset($data['uploadedfile'])){
+						$this->load->library('upload', $config);
 						$data['uploadedfile'] =  $this->uplots('uploadedfile',$path);
 					}
 					$this->db->insert($tname,$data);
