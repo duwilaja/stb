@@ -166,13 +166,13 @@ if (count($farr) > 0 && $session['nrp'] != '') {
             <div class="sidebar-wrapper">
                 <div>
                     <div class="logo-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid for-light" src="<?php echo $base_url; ?>cuba/assets/images/logo.png" alt="" width="150px">
-                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/sm-teritory2.png" style="width : 50%;" alt=""></a>
+                            <img class="img-fluid for-dark" src="<?php echo $base_url; ?>cuba/assets/images/sm-teritory4.png" style="width : 85%;" alt=""></a>
                         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
                         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid">
                             </i></div>
                     </div>
-                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" alt=""></a></div>
-                    <nav class="sidebar-main">
+                    <div class="logo-icon-wrapper"><a href="<?php echo $base_url; ?>home"><img class="img-fluid" src="<?php echo $base_url; ?>cuba/assets/images/logo-army2.png" style="width : 80%;" alt=""></a></div>
+                    <nav class=" sidebar-main">
                         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                         <?php if ($session['wasdal'] == 'N') { ?>
                             <div id="sidebar-menu usr">

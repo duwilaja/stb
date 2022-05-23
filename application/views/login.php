@@ -44,7 +44,7 @@ $base_url = base_url();
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-xl-5 p-0  d-flex justify-content-left" style="background-image: url('<?php echo $base_url; ?>cuba/assets/images/login-pict.png');">
+      <div class="col-xl-5 p-0  d-flex justify-content-left" style="background-image: url('<?php echo $base_url; ?>cuba/assets/images/login-pict2.png');">
       </div>
       <div class=" col-xl-7 p-0" style="background-color: #f7f7f7;">
         <div class="login-card" style="margin-top:10px ;">
