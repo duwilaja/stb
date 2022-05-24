@@ -48,6 +48,9 @@ class Mobile extends CI_Controller {
 		$tn="";
 		switch($kategori){
 			case "emergency": $tn="emergency"; break;
+			case "bencana": $tn="lapsit_bencana"; break;
+			case "giatmasy": $tn="lapsit_giat_masy"; break;
+			case "kamtibmas": $tn="lapsit_kamtibmas"; break;
 			//case "object": $tn="coll_obj"; break;
 			//case "rawan": $tn="coll_rawan"; break;
 		}
@@ -57,6 +60,9 @@ class Mobile extends CI_Controller {
 		$fn="";
 		switch($kategori){
 			case "emergency": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
+			case "bencana": $fn="nrp,tgl,tgls,jam,jenis,bantuan,lokasi,lat,lng"; break;
+			case "giatmasy": $fn="nrp,tgl,jenis,tglmulai,jammulai,tglselesai,jamselesai,lokasi,lat,lng"; break;
+			case "kamtibmas": $fn="nrp,tgl,jam,jenis,lokasi,lat,lng,caratindak,tindakan,uraian,uploadedfile"; break;
 			//case "object": $fn="nrp,tgl,jam,detil,nama,lat,lng"; break;
 			//case "rawan": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
 		}
