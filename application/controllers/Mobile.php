@@ -68,7 +68,7 @@ class Mobile extends CI_Controller {
 			case "kamtibmas": $fn="nrp,tgl,jam,jenis,lokasi,lat,lng,caratindak,tindakan,uraian,uploadedfile"; break;
 			case "pengawalan": $fn="nrp,tgl,jam,obj,nama,lokasi,lat,lng,acara,uraian,uploadedfile"; break;
 			case "kericuhan": $fn="nrp,tgl,jam,kategori,lokasi,lat,lng,md,lb,lr,uraian,uploadedfile,korban"; break;
-			case "ketahanan": $fn="nrp,tgl,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile,korban"; break;
+			case "ketahanan": $fn="nrp,tgl,jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile,korban"; break;
 			//case "object": $fn="nrp,tgl,jam,detil,nama,lat,lng"; break;
 			//case "rawan": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
 		}
