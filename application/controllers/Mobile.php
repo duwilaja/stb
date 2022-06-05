@@ -134,7 +134,7 @@ class Mobile extends CI_Controller {
 					$config['file_ext_tolower'] = true;
 					//$config['overwrite'] = false;
 					$m="";
-					if(isset($data['uploadedfile'])){
+					if (strpos($fname, "uploadedfile") !== false) {
 						$this->load->library('upload', $config);
 						$data['uploadedfile'] =  $this->uplots('uploadedfile',$path);
 					}
