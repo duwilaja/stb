@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 $cols="nrp,unit,polda,polres,dinas,subdinas,";
-$cols="'' as btnset,nrp,tgl,jam,lokasi,lat,lng,kategori,penyebab,detil,rowid";
+$cols="'' as btnset,nrp,tgl,jam,lokasi,status,lat,lng,kategori,penyebab,detil,rowid";
 $tname="emergency";
 ?>
 
@@ -15,6 +15,7 @@ $tname="emergency";
 						<th>Tanggal</th>
 						<th>Jam</th>
 						<th>Lokasi</th>
+						<th>Status</th>
 						<th>Latitude</th>
 						<th>Longitude</th>
 						<th>Kategori</th>
@@ -47,6 +48,7 @@ function load_table(){
 				d.orders= '<?php echo base64_encode("tgl desc, jam desc, rowid desc"); ?>',
 				d.ismap= true,
 				d.isedit= true,
+				d.isexec= true,
 				d.fdate= $('#fdate').val(),
 				d.tdate= $('#tdate').val();
 			}

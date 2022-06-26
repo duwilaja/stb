@@ -178,11 +178,16 @@ $(document).ready(function () {
 	});*/
 	//var datakus=[{lat:-6.175392,lng: 106.827153,lokasi:"Nama Lokasi", ket: "Keterangannya"},{lat:-6.185392,lng: 106.817153,lokasi:"Nama Lokasi 2", ket: "Keterangannya Lagi"}];
 	//drawMarkers(datakus,"Label nja");
+	if(lokasiku.length==0){
 	datasGet("coll_obj","Object Vital");
 	datasGet("coll_rawan","Wilayah Rawan");
 	datasGet("emergency","Emergency");
 	datasGet("rengiat_wal","Pengawalan");
 	datasGet("rengiat_suluh","Penyuluhan");
+	}else{
+		//console.log(lokasiku);
+		drawMarkers(lokasiku,"Laporan");
+	}
 });
 
 /*

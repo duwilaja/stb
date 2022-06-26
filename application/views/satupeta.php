@@ -19,9 +19,9 @@
     
 
     <!-- Select2 css -->
-    <link href="<?php echo base_url().'aronox/assets/plugins/select2/select2.min.css';?>" rel="stylesheet" />
+    <!--link href="<?php echo base_url().'aronox/assets/plugins/select2/select2.min.css';?>" rel="stylesheet" />
     
-    <link href="<?php echo base_url().'aronox/assets/css/apexcharts.css';?>" rel="stylesheet" />
+    <link href="<?php echo base_url().'aronox/assets/css/apexcharts.css';?>" rel="stylesheet" /-->
     
     <!-- bootstrap CSS-->
     <link rel="stylesheet" href="<?php echo base_url().'my/vendor/bootstrap/css/bootstrap-select.min.css';?>">
@@ -40,12 +40,12 @@
     <link href="<?php echo base_url().'my/css/custom.css';?>" rel="stylesheet" />
     
     <!-- Owl -->
-    <link rel="stylesheet" href="<?php echo base_url('my/vendor/owl/owl.carousel.min.css')?>">
-    <link rel="stylesheet" href="<?php echo base_url('my/vendor/owl/owl.theme.default.min.css')?>">
+    <!--link rel="stylesheet" href="<?php echo base_url('my/vendor/owl/owl.carousel.min.css')?>">
+    <link rel="stylesheet" href="<?php echo base_url('my/vendor/owl/owl.theme.default.min.css')?>"-->
     
     
     <!-- Tabs css-->
-    <link href="<?php echo base_url().'aronox/assets/plugins/tabs/style.css';?>" rel="stylesheet" />
+    <!--link href="<?php echo base_url().'aronox/assets/plugins/tabs/style.css';?>" rel="stylesheet" /-->
     
     <!-- Select2 -->
     <!-- Owl -->
@@ -71,18 +71,20 @@
 <body>
 
 
-  <?php $this->load->view($page);?>
+  <?php 
+  //echo "disini adalah ".json_encode($lokasi);
+  $this->load->view($page);?>
 
 <!-- Owl  -->
-<script src="<?= base_url('my/vendor/owl/owl.carousel.min.js')?>"></script>
-<script src="<?= base_url()?>aronox/assets/js/popover.js"></script>
+<!--script src="<?= base_url('my/vendor/owl/owl.carousel.min.js')?>"></script-->
+<!--script src="<?= base_url()?>aronox/assets/js/popover.js"></script-->
 <script src="<?=base_url().'my/satupeta/js/heatmap.js'?>"></script>
 <script src="<?=base_url().'my/satupeta/js/leaflet-heatmap.js'?>"></script>
 <script src="<?=base_url().'my/satupeta/js/L.Control.Basemaps-min.js'?>"></script>
 
 <!-- select2 -->
-<script src="<?= base_url('my/vendor/select2/select2.min.js')?>"></script>
-<script src="<?= base_url('my/vendor/leaflet/leaflet.smooth.wheel.js')?>"></script>
+<!--script src="<?= base_url('my/vendor/select2/select2.min.js')?>"></script-->
+<!--script src="<?= base_url('my/vendor/leaflet/leaflet.smooth.wheel.js')?>"></script-->
 
 
 <?php 
@@ -92,14 +94,18 @@ if (isset($js_array_top)) {
     }
 }
 ?>
+<script>
+var lokasiku=<?php echo json_encode($lokasi)?>;
+</script>
 <script src="<?=base_url().'my/js_local/'.$js_local;?>"></script>
 <script>
- $('#form_filter').submit(function (e) { 
+/* $('#form_filter').submit(function (e) { 
     e.preventDefault();
     prom_get_vip().then(function (data) {
 		list_vip();
 	});
-  });
+  });*/
+//  alert('<?php echo ($iddant)?>');
 </script>
 <?php 
 if (isset($js_array_bot)) {
@@ -112,7 +118,7 @@ if (isset($js_array_bot)) {
 <!-- <script src="http://bbecquet.github.io/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script> -->
 <script src="<?=base_url().'my/satupeta/js/leaflet.rotatedMarker.js'?>"></script>
 
-<script src="<?=base_url()?>my/js_local/satupeta/custom.js"></script>
+<!--script src="<?=base_url()?>my/js_local/satupeta/custom.js"></script-->
 
 
   </body>

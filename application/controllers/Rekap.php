@@ -92,6 +92,7 @@ class Rekap extends CI_Controller {
 			$ismap=base64_decode($this->input->post('ismap')); //is map button active?
 			$isverify=base64_decode($this->input->post('isverify')); //is verify button active?
 			$isfile=base64_decode($this->input->post('isfile')); //is files active?
+			$isexec=base64_decode($this->input->post('isexec')); //is files active?
 			
 			$where=array();
 			$acol=explode(",",$cols);
@@ -159,6 +160,10 @@ class Rekap extends CI_Controller {
 					for($z=0;$z<count($myfiles);$z++){
 						$data_assoc[$i][$myfiles[$z]]=$this->make_link($data_assoc[$i][$myfiles[$z]]);
 					}
+				}
+				if($isexec){
+					$lnkx=base_url("laporan").'/eksekusi?id='.$data_assoc[$i]['rowid'].'&t='.$tname;
+					$lnk.='<a title="Exec" class="btn btn-icon" href="'.$lnkx.'"><i class="fa fa-arrow-right"></i></a>';
 				}
 				if($lnk!=''){
 					$lnk.='<a title="Delete" class="btn btn-icon" onclick="confirmDeletex(\''.$data_assoc[$i]['rowid'].'\',\''.$tname.'\');"><i class="fa fa-times"></i></a>';
