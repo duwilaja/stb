@@ -169,7 +169,7 @@ class Laporan extends CI_Controller {
 			$fname=$this->input->post('fieldnames');
 			$data=$this->input->post(explode(",",$fname));
 			$aplo="";
-			if(strpos($fname,"uploadedfile")){
+			if(strpos($fname,"uploadedfile")!==false){
 				//upload here
 				$path="./uploads/".$this->input->post("path");
 				$config['upload_path'] = $path;
@@ -300,7 +300,83 @@ class Laporan extends CI_Controller {
 		}
 		return $d;
 	}
+	public function eksekusi()
+    {
+        $id = $this->input->get('id');
+        $t = $this->input->get('t');
+        $user=$this->session->userdata('user_data');
+		//if ($id != '' && isset($user)) {
+        if (isset($user)) {
+            $data = [
+                'title' => 'Eksekusi Pengaduan',
+                'header' => 'Eksekusi',
+                'js' => 'page/pengaduan/eksekusi.js',
+                'link_view' => 'pengaduan/eksekusi'
+            ];
+			$data['formulir'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','F')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+			$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,grp')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("nama_laporan")->get('formulir')->result_array();
+            $data['grp'] = $this->db->distinct()->select('grp,icon')->like('tipe','R')->where(array("unit"=>$user['unit'],"isactive"=>"Y"))->order_by("grp")->get('formulir')->result_array();
+            
+			if($user["wasdal"]=="Y"){
+				$data['units'] = $this->db->select('unit_id,unit_nam')->order_by("unit_nam")->get('unit')->result_array();
+				$data['rekap'] = $this->db->select('view_laporan as v,nama_laporan as t,unit')->like('tipe','R')->where(array("isactive"=>"Y"))->order_by("unit,nama_laporan")->get('formulir')->result_array();
+			}
+			$data['session'] = $user;
+			$data['id']=$id;
+			$data['t']=$t;
+			$data['d']=$this->db->where("rowid",$id)->get($t)->row_array();
+			$this->template->load('eksekusi', $data);
+        }
+    }
+	private function result_to_in($res,$fld){
+		$ret=array('');
+		foreach($res as $row){
+			$ret[]=$row[$fld];
+		}
+		return $ret;
+	}
+	public function petugas(){
+		$t = $this->input->post('t');
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lon');
+		
+		$temp=$this->db->select("rowid")->where_not_in("status",array("Selesai","Batal"))->get($t)->result_array();
+		$unfinished=$this->result_to_in($temp,'rowid');
+		
+        $temp=$this->db->select("petugas")->where('tname',$t)->where_in('trid',$unfinished)->get('penugasan')->result_array();
+		$unavail=$this->result_to_in($temp,'petugas');
+		
+		$out=$this->db->select("nrp,nama,ST_Distance_Sphere(POINT(lng,lat),POINT($lng,$lat))/1000 as jarak")->where("mob","Y")->where_not_in('nrp',$unavail)->get("persons")->result_array();
+		echo json_encode($out);
+	}
+	public function tugaskeun(){
+		$id = $this->input->post('id');
+        $t = $this->input->post('t');
+        $nrp = $this->input->post('nrp');
+        $user=$this->session->userdata('user_data');
+		$out=array("msg"=>"Session closed. Please login","typ"=>"error");
+		if (isset($user)) {
+			$this->db->insert("penugasan",array("petugas"=>$nrp,"tname"=>$t,"trid"=>$id));
+			$this->db->update($t,array("status"=>"Menunggu Konfirmasi"),"rowid=$id");
+			$out=array("msg"=>"$nrp telah ditugaskan","typ"=>"success");
+		}
+		echo json_encode($out);
+	}
+	public function apdetkeun(){
+		$id = $this->input->post('id');
+        $t = $this->input->post('t');
+        $stt = $this->input->post('stt');
+        $user=$this->session->userdata('user_data');
+		$out=array("msg"=>"Session closed. Please login","typ"=>"error");
+		if (isset($user)) {
+			$this->db->update($t,array("status"=>$stt),"rowid=$id");
+			$out=array("msg"=>"Status diset $stt","typ"=>"success");
+		}
+		echo json_encode($out);
+	}
 	
+	
+/*yang lama*/	
 	public function save_rengiat_vip()
 	{
 		$user=$this->session->userdata('user_data');

@@ -118,7 +118,8 @@ if($mn=='user'){
 }
 if($mn=='rpwd'){
 	$pwd=random_string();
-	$sql="update accounts set pwd=md5('$pwd') where nrp='$s_ID'";
+	$id=post('uid');
+	$sql="update accounts set pwd=md5('$pwd') where nrp='$id'";
 	$re=exec_qry($conn,$sql);
 	if(db_error($conn)==""){
 		$code='200'; $ttl="Success";

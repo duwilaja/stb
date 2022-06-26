@@ -218,7 +218,8 @@ if (count($farr) > 0 && $session['nrp'] != '') {
                                                             if ($v['grp'] == $g['grp']) {
                                                     ?>
                                                                 <li>
-                                                                    <a class="sidebar-link sidebar-title link-nav" style="font-size: 12px;" href="#" onclick="ambil_isi('<?php echo $v['v'] ?>','rekap','<?php echo $v['t'] ?>');">
+                                                                    <!--a class="sidebar-link sidebar-title link-nav" style="font-size: 12px;" href="#" onclick="ambil_isi('<?php echo $v['v'] ?>','rekap','<?php echo $v['t'] ?>');"-->
+                                                                    <a class="sidebar-link sidebar-title link-nav" style="font-size: 12px;" href="<?php echo base_url('home')."?v=".$v['v']."&p=rekap&t=".$v['t'] ?>">
                                                                         <span><?php echo $v['t'] ?></span>
                                                                     </a>
                                                                 </li>

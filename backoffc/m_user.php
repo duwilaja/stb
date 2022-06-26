@@ -1,6 +1,6 @@
 <?php 
-$restrict_lvl=array("Korlantas","Ditlantas","Satlantas");
-$restrict_grp=array("Bag TIK","Polda","Polres");
+//$restrict_lvl=array("Korlantas","Ditlantas","Satlantas");
+//$restrict_grp=array("Bag TIK","Polda","Polres");
 
 include "inc.common.php";
 include "inc.session.php";
@@ -99,7 +99,7 @@ disconnect($conn);
 <input type="hidden" name="rowid" id="rowid" value="0">
 <input type="hidden" name="mnu" value="<?php echo $menu?>">
 <input type="hidden" id="sv" name="sv" />
-<input type="hidden" name="cols" value="nrp,nama,email,isactive,das,adm,opr,mob,wasdal" />
+<input type="hidden" name="cols" value="nrp,nama,email,isactive,das,adm,opr,mob,wasdal,lat,lng" />
 <input type="hidden" name="tname" value="persons" />
 		
 		  <div class="row">
@@ -134,12 +134,12 @@ disconnect($conn);
 		  </div>
 		  <div class="row">
 			<div class="form-group col-md-6">
-				<label>Polda</label>
-				<input type="text" id="da_nam" name="da_nam" placeholder="..." class="form-control">
+				<label>Lat</label>
+				<input type="text" id="lat" name="lat" placeholder="..." class="form-control">
 			</div>
 			<div class="form-group col-md-6">
-				<label>Polres</label>
-				<input type="text" id="res_nam" name="res_nam" placeholder="..." class="form-control">
+				<label>Lon</label>
+				<input type="text" id="lng" name="lng" placeholder="..." class="form-control">
 			</div>
 		  </div>
 		  <div class="row">
@@ -208,7 +208,7 @@ include "inc.js.php";
 $tname="persons p left join polda d on d.da_id=p.polda left join polres r on p.polres=r.res_id";
 $cols="nrp,nama,email,dinas,subdinas,da_nam,res_nam,adm,das,opr,mob,wasdal,isactive,p.rowid";
 $csrc="nama,nrp,email,subdinas,dinas,da_nam,res_nam";
-$where="nrp<>'$s_ID'";
+$where="1=1";//"nrp<>'$s_ID'";
 if($s_LVL=='Ditlantas'){
 	$where.=" and p.polda='$s_POLDA'";
 }
