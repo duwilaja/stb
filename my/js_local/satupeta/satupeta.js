@@ -187,6 +187,7 @@ $(document).ready(function () {
 	}else{
 		//console.log(lokasiku);
 		drawMarkers(lokasiku,"Laporan");
+		mymap.setView(new L.LatLng(lokasiku[0]['lat'],lokasiku[0]['lng']));
 	}
 });
 
