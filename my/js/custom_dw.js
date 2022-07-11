@@ -524,7 +524,7 @@ function confirmDeletex(id,tname){
 function deleteDatax(id,tname){
 	$.ajax({
 		type: 'POST',
-		url: 'laporan/dele',
+		url: base_url+'laporan/dele',
 		data: {rowid:id,tablename:tname},
 		success: function(data){
 			var json = JSON.parse(data);

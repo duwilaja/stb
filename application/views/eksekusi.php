@@ -25,7 +25,7 @@
                       <li class="nav-item active"><a class="nav-link btn btn-success" id="pills-person-pill" data-bs-toggle="pill" href="#pills-person" role="tab" aria-controls="pills-person" aria-selected="true" style="padding: .5rem 1rem!important; margin-right:3px!important;"><i class="icofont icofont-users-alt-2" style="margin-right: 0px !important;"></i></a></li>
                       <!--li class="nav-item"><a class="nav-link btn btn-secondary" id="pills-instansi-pill" data-bs-toggle="pill" href="#pills-instansi" role="tab" aria-controls="pills-instansi" aria-selected="true" style="padding: .5rem 1rem!important; margin-right:3px!important;"><i class="icofont icofont-ui-home" style="margin-right: 0px !important;"></i></a></li>
                       <li class="nav-item"><a class="nav-link btn btn-primary" id="pills-kendaraan-tab" data-bs-toggle="pill" href="#pills-kendaraan" role="tab" aria-controls="pills-kendaraan" aria-selected="true" style="padding: .5rem 1rem!important; margin-right:3px!important;"><i class="icofont icofont-car-alt-4" style="margin-right: 0px !important;"></i></a></li-->
-                      <li class="nav-item"><a class="nav-link btn btn-warning" onclick="thispage_ready()" data-bs-toggle="pill" href="#" role="tab" aria-controls="pills-kendaraans" aria-selected="true" style="padding: .5rem 1rem!important; margin-right:3px!important;"><i class="icofont icofont-refresh" style="margin-right: 0px !important;"></i></a></li>
+                      <li class="nav-item"><a class="nav-link btn btn-warning" onclick="list_petugas()" data-bs-toggle="pill" href="#" role="tab" aria-controls="pills-k" aria-selected="true" style="padding: .5rem 1rem!important; margin-right:3px!important;"><i class="icofont icofont-refresh" style="margin-right: 0px !important;"></i></a></li>
                     </ul>
                     <div class="tab-content" id="pills-icontabContent" style="overflow:hidden;height:90%;">
                       <div class="tab-pane fade show active" id="pills-person" role="tabpanel" aria-labelledby="pills-person-tab">                       
@@ -121,7 +121,7 @@
                                         <li class="list-inline-item"><a href="#"><i class="icon-clip"></i></a></li>
                                         <li class="list-inline-item"><a href="#"><i class="icon-video-camera"></i></a></li> -->
                                         <li class="list-inline-item me-4"><a href="#" data-bs-toggle="modal" data-bs-target="#updateModal" class="btn btn-warning">Update</a></li>
-                                        <!--li class="list-inline-item me-4"><a href="#" onclick="list_detail()"><button class="btn btn-danger">DETAIL</button></a></li-->
+                                        <li class="list-inline-item me-4"><a href="#" data-bs-toggle="modal" data-bs-target="#detailModal" class="btn btn-danger" onclick="reload_table()">Detail</a></li>
                                     </ul>
                                 </div>
                                 <!-- chat-header end-->
@@ -249,16 +249,29 @@
 </div>
 
 <!-- Modal Detail-->
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detailLabel">Detail</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <div id="content-detail">
-          </div>
+        <div class="table-responsive">
+			<table id="tabelku" class="table table-striped table-bordered w-100">
+				<thead>
+					<tr>
+						<th>Petugas</th>
+						<th>Status</th>
+						<th>Ditugaskan Oleh</th>
+						<th>Pada</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
       </div>
     </div>
   </div>
@@ -368,10 +381,39 @@ function kirimkeun(url,data){
 		}
 	});
 }
-
+var mytbl;
+function load_table(){
+	mytbl = $("#tabelku").DataTable({
+		serverSide: true,
+		processing: true,
+		searching: false,
+		ordering:false,
+		//buttons: ['copy', {extend : 'excelHtml5', messageTop: $(".judul").text()}],
+		ajax: {
+			type: 'POST',
+			url: '<?php echo base_url()?>rekap/datatable',
+			data: function (d) {
+				d.cols= '<?php echo base64_encode("petugas,status,oleh,dtm,'' as btnset,rowid"); ?>',
+				d.tname= '<?php echo base64_encode("penugasan"); ?>',
+				d.orders= '<?php echo base64_encode("rowid desc"); ?>',
+				d.isjob= true,
+				d.trid= rowid,
+				d.t=t;
+			}
+		},
+		initComplete: function(){
+			//dttbl_buttons(); //for ajax call
+		}
+	});
+//	datepicker();
+}
+function reload_table(){
+	mytbl.ajax.reload();
+}
 
 function thispage_ready(){
 	list_petugas();
 	$("#status").val("<?php echo $d["status"]?>");
+	load_table();
 }
 </script>
