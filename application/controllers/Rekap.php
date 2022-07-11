@@ -89,28 +89,26 @@ class Rekap extends CI_Controller {
 			
 			$isedit=base64_decode($this->input->post('isedit')); //is editable?
 			
-			$ismap=base64_decode($this->input->post('ismap')); //is map button active?
-			$isverify=base64_decode($this->input->post('isverify')); //is verify button active?
-			$isfile=base64_decode($this->input->post('isfile')); //is files active?
-			$isexec=base64_decode($this->input->post('isexec')); //is files active?
+			$ismap=$this->input->post('ismap'); //is map button active?
+			$isverify=$this->input->post('isverify'); //is verify button active?
+			$isfile=$this->input->post('isfile'); //is files active?
+			$isexec=$this->input->post('isexec'); //is exec active?
+			$isjob=$this->input->post('isjob'); //is job detail active?
 			
 			$where=array();
 			$acol=explode(",",$cols);
 			$ftgl=$this->input->post('ftgl')?$this->input->post('ftgl'):'tgl';
 			
-			//build where polda/polres
+			//build where
+			if($isjob){
+				$where=array('tname'=>$this->input->post('t'),'trid'=>$this->input->post('trid'));
+			}
 			if ($this->input->post('fdate') != '') {
-				$where=array($ftgl.'>='=>$this->input->post('fdate')); //date('Y-m-d');
+				$where=array_merge($where,array($ftgl.'>='=>$this->input->post('fdate'))); //date('Y-m-d');
 			}
 			if ($this->input->post('tdate') != '') {
 				$where=array_merge($where,array($ftgl.'<='=>$this->input->post('tdate'))); //date('Y-m-d');
 			}
-			//$d=$user['polres'];
-			///if($d!='')
-				//$where[$tname.'.polres']=$d;
-			//$d=$user['polda'];
-			//if($d!='')
-				//$where[$tname.'.polda']=$d;
 			
 			$this->db->select($cols);
 			//$this->db->from($tname);
@@ -164,6 +162,10 @@ class Rekap extends CI_Controller {
 				if($isexec){
 					$lnkx=base_url("laporan").'/eksekusi?id='.$data_assoc[$i]['rowid'].'&t='.$tname;
 					$lnk.='<a title="Exec" class="btn btn-icon" href="'.$lnkx.'"><i class="fa fa-arrow-right"></i></a>';
+				}
+				if($isjob){
+					$lnkx=base_url().'edit/penugasan?i='.$data_assoc[$i]['rowid'];
+					$lnk.='<a title="Detail" class="btn btn-icon" href="JavaScript:;" data-fancybox="" data-type="iframe" data-src="'.$lnkx.'"><i class="fa fa-search"></i></a>';
 				}
 				if($lnk!=''){
 					$lnk.='<a title="Delete" class="btn btn-icon" onclick="confirmDeletex(\''.$data_assoc[$i]['rowid'].'\',\''.$tname.'\');"><i class="fa fa-times"></i></a>';

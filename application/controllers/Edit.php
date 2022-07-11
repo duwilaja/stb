@@ -23,6 +23,23 @@ class Edit extends CI_Controller {
 		}
 	}
 	
+	public function penugasan()
+	{
+		$user=$this->session->userdata('user_data');
+		if(isset($user)){
+			$data['session']=$user;
+			$id=$this->input->get('i');
+			$data['penugasan']=$this->db->where('rowid',$id)->get('penugasan')->result_array();
+			if(count($data['penugasan'])>0){
+				$data['kasus']=$this->db->where("rowid",$data['penugasan'][0]['trid'])->get($data['penugasan'][0]['tname'])->result_array();
+				if(count($data['kasus'])>0){$this->load->view('penugasan',$data);}
+			}
+			echo "<h3>Data not found.</h3>";
+		}else{
+			echo "<h3>Invalid session, please login.</h3>";
+		}
+	}
+	
 	public function get(){
 		$user=$this->session->userdata('user_data');
 		$ret=array();

@@ -356,7 +356,7 @@ class Laporan extends CI_Controller {
         $user=$this->session->userdata('user_data');
 		$out=array("msg"=>"Session closed. Please login","typ"=>"error");
 		if (isset($user)) {
-			$this->db->insert("penugasan",array("petugas"=>$nrp,"tname"=>$t,"trid"=>$id));
+			$this->db->insert("penugasan",array("petugas"=>$nrp,"tname"=>$t,"trid"=>$id,"status"=>"Menunggu Konfirmasi","oleh"=>$user["nrp"]));
 			$this->db->update($t,array("status"=>"Menunggu Konfirmasi"),"rowid=$id");
 			$out=array("msg"=>"$nrp telah ditugaskan","typ"=>"success");
 		}
