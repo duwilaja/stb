@@ -27,14 +27,18 @@ class Edit extends CI_Controller {
 	{
 		$user=$this->session->userdata('user_data');
 		if(isset($user)){
+			$notfound=true;
 			$data['session']=$user;
 			$id=$this->input->get('i');
-			$data['penugasan']=$this->db->where('rowid',$id)->get('penugasan')->result_array();
+			$data['penugasan']=$this->db->select("*,if(status='Selesai',TIMEDIFF(selesai,dtm),TIMEDIFF(NOW(),dtm)) as lama")->where('rowid',$id)->get('penugasan')->result_array();
 			if(count($data['penugasan'])>0){
 				$data['kasus']=$this->db->where("rowid",$data['penugasan'][0]['trid'])->get($data['penugasan'][0]['tname'])->result_array();
-				if(count($data['kasus'])>0){$this->load->view('penugasan',$data);}
+				if(count($data['kasus'])>0){
+					$this->load->view('penugasan',$data);
+					$notfound=false;
+				}
 			}
-			echo "<h3>Data not found.</h3>";
+			if($notfound){echo "<h3>Data not found.</h3>";}
 		}else{
 			echo "<h3>Invalid session, please login.</h3>";
 		}

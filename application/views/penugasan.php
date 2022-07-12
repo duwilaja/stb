@@ -172,7 +172,7 @@ $base_url = base_url();
 	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Lama Penugasan :</label>
-			<span><?php echo $penugasan[0]['selesai']?></span>
+			<span><?php echo $penugasan[0]['lama']?></span>
 		</div>
 	</div>
 </div>
@@ -200,7 +200,12 @@ $base_url = base_url();
 	<div class="col-sm-6 col-md-4">
 		<div class="form-group">
 			<label class="form-label">Bukti :</label>
-			<span><?php echo $penugasan[0]['uploadedfile']?></span>
+			<span><?php 
+			$files=explode(";",$penugasan[0]['uploadedfile']);
+			foreach($files as $file){
+				echo '<img src="'.$file.'">';
+			}
+			?></span>
 		</div>
 	</div>
 </div>
