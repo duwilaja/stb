@@ -54,7 +54,7 @@ class Mobile extends CI_Controller {
 			case "pengawalan": $tn="lapsit_wal"; break;
 			case "kericuhan": $tn="lapsit_ricuh"; break;
 			case "ketahanan": $tn="lapsit_ketahanan"; break;
-			//case "object": $tn="coll_obj"; break;
+			case "penugasan": $tn="penugasan"; break;
 			//case "rawan": $tn="coll_rawan"; break;
 		}
 		return $tn;
@@ -69,7 +69,7 @@ class Mobile extends CI_Controller {
 			case "pengawalan": $fn="nrp,tgl,jam,obj,nama,lokasi,lat,lng,acara,uraian,uploadedfile"; break;
 			case "kericuhan": $fn="nrp,tgl,jam,kategori,lokasi,lat,lng,md,lb,lr,uraian,uploadedfile,korban"; break;
 			case "ketahanan": $fn="nrp,tgl,jam,aksi,pelaku,md,lb,lr,lokasi,lat,lng,uraian,uploadedfile,korban"; break;
-			//case "object": $fn="nrp,tgl,jam,detil,nama,lat,lng"; break;
+			case "penugasan": $fn="rowid,selesai,status,uploadedfile,penyebab,tindakan,keterangan"; break;
 			//case "rawan": $fn="nrp,tgl,jam,detil,lokasi,lat,lng,kategori,penyebab"; break;
 		}
 		return $fn;
@@ -91,6 +91,7 @@ class Mobile extends CI_Controller {
 			if(count($rs) > 0){
 				$token=md5(uniqid(rand(), true)).md5(uniqid(rand(), true));
 				$this->session->set_userdata('user_token',$token);
+				$this->session->set_userdata('user_id',$nrp);
 				$retval=array("code"=>"200","ttl"=>"OK","msgs"=>$token);
 			}
 		}
@@ -128,7 +129,7 @@ class Mobile extends CI_Controller {
 				if($fname!=""&&$tname!=""){
 					$data=$this->input->post(explode(",",$fname));
 					//upload here
-					$path="./uploads/$fname/";
+					$path="./uploads/$tname/";
 					$config['upload_path'] = $path; //"../sm-ci/uploads/publicservice/$kategori/";
 					$config['allowed_types'] = '*';//'gif|jpg|jpeg|png';//all
 					$config['file_ext_tolower'] = true;
@@ -138,7 +139,11 @@ class Mobile extends CI_Controller {
 						$this->load->library('upload', $config);
 						$data['uploadedfile'] =  $this->uplots('uploadedfile',$path);
 					}
-					$this->db->insert($tname,$data);
+					if($tname=='penugasan'){
+						$this->db->update($tname,$data,"rowid=".$data["rowid"]);
+					}else{
+						$this->db->insert($tname,$data);
+					}
 					$ret=$this->db->affected_rows();
 					if($ret>0){
 						$msgs="$ret data terkirim";
@@ -159,6 +164,26 @@ class Mobile extends CI_Controller {
 			echo json_encode($retval);
 		}
 	}
-	
+	public function penugasan(){
+		$user=$this->session->userdata('user_token');
+		$userid=$this->session->userdata('user_id');
+		$auth=$this->input->get_request_header('X-token', TRUE);
+		if(isset($user)){
+			if($auth==$user){
+				$id=$this->input->post('rowid');
+				$this->db->where("petugas",$userid);
+				if($id!="0"){ $this->db->where("rowid",$id); }
+				$data=$this->db->order_by("rowid desc")->get("penugasan")->result_array();
+				$retval=array('code'=>"200",'ttl'=>"OK",'msgs'=>$data);
+				echo json_encode($retval);
+			}else{
+				$retval=array('code'=>"403",'ttl'=>"Invalid session",'msgs'=>"Invalid token");
+				echo json_encode($retval);
+			}
+		}else{
+			$retval=array('code'=>"403",'ttl'=>"Session closed",'msgs'=>"Please login");
+			echo json_encode($retval);
+		}
+	}
 	
 }
